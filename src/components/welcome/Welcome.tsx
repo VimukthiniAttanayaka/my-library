@@ -6,7 +6,7 @@ const Welcome: React.FC = () => {
   return (
     <Row className='welcome'>
       <Col xs={12}>
-        <h1 className='text-center my-3'>My Library</h1>
+        <h1 className='text-center mt-2 mb-3'>My Library</h1>
       </Col>
       <Col xs={12} className='p-0'>
         <Image src={libraryimg}></Image>
