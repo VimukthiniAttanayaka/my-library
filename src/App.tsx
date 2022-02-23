@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.scss';
+import Library from './components/view/Library';
 
-const App = () => {
+const App:React.FC = () => {
   	return (
     	<div className="App">
-			hi
+			<Library/>
     	</div>
   	);
 }
