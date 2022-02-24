@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import AuthorSection from "../author/AuthorSection";
+import BookSection from "../book/BookSection";
 import Welcome from "../welcome/Welcome";
 
 const Library: React.FC = () => {
@@ -14,7 +15,7 @@ const Library: React.FC = () => {
           			<AuthorSection/>
 				</Col>
 				<Col xs={{ span: 12, order: 2 }} md={{ span: 6, order: 1 }}>
-					Book
+					<BookSection/>
 				</Col>
 			</Row>
     </Container>
