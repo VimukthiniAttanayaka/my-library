@@ -1,4 +1,3 @@
-import { type } from "os";
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { IBook } from "../types/LibraryTypes";
@@ -7,7 +6,8 @@ import Swal from 'sweetalert2';
 
 type BookProps = {
     book:IBook,
-    index:number
+    index:number,
+    deleteBook : (index:number) => void,
 }
 const Book:React.FC<BookProps> = (props) => {
     const {book, index} = props
@@ -23,7 +23,7 @@ const Book:React.FC<BookProps> = (props) => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result:any) => {
             if (result.isConfirmed) {
-              
+                props.deleteBook(index);
             }
           })
     }

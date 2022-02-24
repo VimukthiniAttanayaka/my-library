@@ -3,15 +3,14 @@ import { Row, Col } from "react-bootstrap";
 import { IAuthor } from "../types/LibraryTypes";
 import Author from "./Author";
 
-const AuthorList:React.FC = () => {
-    const authors:IAuthor[] = [
-        {name:"vimu"},
-        {name:"vimu"},
-        {name:"vimu"},
-    ]
+type AuthorListProps = {
+    authorList:IAuthor[],
+    onAuthorDelete : (index:number) => void,
+}
+const AuthorList:React.FC<AuthorListProps> = (props) => {
 
     const randerAuthor = () => {
-        if(authors.length==0){
+        if(props.authorList.length==0){
             return(
                 <p className="empty-author mt-2"><i>No Author Listed Here</i></p>
             )
@@ -20,8 +19,9 @@ const AuthorList:React.FC = () => {
             return(
                 <ul className="p-3 m-0">
                 {
-                    authors.map((author:IAuthor, index:number) =>
-                            <Author author={author} index={index} key={index}/>
+                    props.authorList.map((author:IAuthor, index:number) =>
+                            <Author author={author} index={index} key={index}
+                                    deleteAuthor = {props.onAuthorDelete}/>
                     )
                 }
                 </ul>

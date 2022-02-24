@@ -7,7 +7,8 @@ import Swal from 'sweetalert2';
 
 type AuthorProps = {
     author:IAuthor,
-    index:number
+    index:number,
+    deleteAuthor : (index:number) => void,
 }
 const Author:React.FC<AuthorProps> = (props) => {
     const {author, index} = props
@@ -23,7 +24,7 @@ const Author:React.FC<AuthorProps> = (props) => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result:any) => {
             if (result.isConfirmed) {
-              
+              props.deleteAuthor(index);
             }
           })
     }
