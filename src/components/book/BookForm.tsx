@@ -26,7 +26,7 @@ const BookForm: React.FC<BookForm> = (props) => {
     }
 
     setValidated(true);
-  };
+  }; 
   return (
     <Row className="book-form-area mb-5">
       <Col xs={11} className="p-0 mb-3 ps-1">
