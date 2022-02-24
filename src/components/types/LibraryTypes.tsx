@@ -7,3 +7,8 @@ export interface IBook {
     price:string,
     author:string
 }
+
+export interface AuthorDropDown {
+    value:string,
+    label:string
+}

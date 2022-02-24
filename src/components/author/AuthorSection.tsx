@@ -12,6 +12,7 @@ type AuthorSectionProps = {
     visible:boolean,
     authorList:IAuthor[],
     onAuthorDelete : (index:number) => void,
+    onAuthorCreate : (newAuther:IAuthor) => void,
 }
 const AuthorSection:React.FC<AuthorSectionProps> = (props) => {
 
@@ -28,7 +29,8 @@ const AuthorSection:React.FC<AuthorSectionProps> = (props) => {
                 <AddAuthor formVisible = {props.onFormVisible}/>
             </Col>
             <Col xs={12} sm={9} className="p-0">
-                {props.visible?<AuthorForm formUnVisible = {props.onFormUnVisible}/>:null}
+                {props.visible?<AuthorForm formUnVisible = {props.onFormUnVisible}
+                                            onAuthorCreate = {props.onAuthorCreate}/>:null}
             </Col>
         </Row>
     )

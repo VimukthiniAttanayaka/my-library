@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
+import { IAuthor } from "../types/LibraryTypes";
 
 type AuthorForm = {
-  formUnVisible: () => void
+  formUnVisible: () => void,
+  onAuthorCreate : (newAuther:IAuthor) => void,
 }
 const AuthorForm: React.FC<AuthorForm> = (props) => {
   const {formUnVisible} = props;
   
   const [validated, setValidated] = useState(false);
+  const [authorName, setAuthorName] = useState<string>("");
+
+  const handleOnAuthorNameChanged = (name:string) => {
+    setAuthorName(name);
+  }
 
   const handleSubmit = (event: any) => {
     const form = event.currentTarget;
@@ -16,8 +23,17 @@ const AuthorForm: React.FC<AuthorForm> = (props) => {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    event.preventDefault();
     setValidated(true);
+    if(!authorName){
+      return;
+    }
+    else{
+      const newAuthor:IAuthor = {name:authorName}
+      props.onAuthorCreate(newAuthor);
+      setAuthorName("");
+    }
+    setValidated(false);
   };
   return (
     <Row className="author-form-area mb-5">
@@ -35,6 +51,9 @@ const AuthorForm: React.FC<AuthorForm> = (props) => {
                 required 
                 type="text" 
                 placeholder="" 
+                value={authorName}
+                onChange={(ev: React.ChangeEvent<HTMLInputElement>,) =>
+                  handleOnAuthorNameChanged(ev.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Enter Author Name

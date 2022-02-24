@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { IBook } from '../types/LibraryTypes';
+import { IAuthor, IBook } from '../types/LibraryTypes';
 import AddBook from './AddBook';
 import BookForm from './BookForm';
 import BookList from './BookList';
 import BookTitle from './BookTitle';
 
-const BookSection:React.FC = () => {
+type BookSectionProps = {
+    authorList : IAuthor[]
+}
+const BookSection:React.FC<BookSectionProps> = (props) => {
+
+    const {authorList} = props;
 
     const books:IBook[] = [
         {name:"vimu",price:"532745",author:"hftgyt"},
@@ -36,6 +41,13 @@ const BookSection:React.FC = () => {
         setBookList(allBook);
       };
 
+      const handleOnBookCreate = (newBook:IBook) => {
+        const index = bookList.length;
+        const allBook: IBook[] = bookList.slice();
+        allBook.splice(index, 1, newBook);
+        setBookList(allBook);
+      };
+      
     return (
         <Row className='book-section mx-4 mx-sm-5'>
             <Col xs={12} className="p-0">
@@ -49,7 +61,9 @@ const BookSection:React.FC = () => {
                 <AddBook formVisible = {handleOnFormVisible}/>
             </Col>
             <Col xs={12} sm={9} className="p-0">
-                {visible?<BookForm formUnVisible = {handleOnFormUnVisible}/>:null}
+                {visible?<BookForm formUnVisible = {handleOnFormUnVisible}
+                                    onBookCreate={handleOnBookCreate}
+                                    authorList={props.authorList}/>:null}
             </Col>
         </Row>
     )
