@@ -3,15 +3,14 @@ import { Row, Col } from "react-bootstrap";
 import { IBook } from "../types/LibraryTypes";
 import Book from "./Book";
 
-const BookList:React.FC = () => {
-    const books:IBook[] = [
-        {name:"vimu",price:"532745",author:"hftgyt"},
-        {name:"vimu",price:"532745",author:"hftgyt"},
-        {name:"vimu",price:"532745",author:"hftgyt"},
-    ]
+type BookListProps = {
+    bookList:IBook[],
+    onBookDelete : (index:number) => void,
+}
+const BookList:React.FC<BookListProps> = (props) => {
 
     const randerBook = () => {
-        if(books.length==0){
+        if(props.bookList.length==0){
             return(
                 <p className="empty-book mt-2"><i>No Book Listed Here</i></p>
             )
@@ -20,8 +19,9 @@ const BookList:React.FC = () => {
             return(
                 <ul className="p-3 m-0">
                 {
-                    books.map((book:IBook, index:number) =>
-                            <Book book={book} index={index} key={index}/>
+                    props.bookList.map((book:IBook, index:number) =>
+                            <Book book={book} index={index} key={index}
+                            deleteBook = {props.onBookDelete}/>
                     )
                 }
                 </ul>

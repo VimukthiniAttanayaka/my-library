@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { IAuthor } from '../types/LibraryTypes';
 import AddAuthor from './AddAuthor';
 import AuthorForm from './AuthorForm';
 import AuthorList from './AuthorList';
 import AuthorTitle from './AuthorTitle';
 
-const AuthorSection:React.FC = () => {
-
-    const [visible, setVisible] = useState(false);
-
-    const handleOnFormVisible = () => {
-        return (
-            setVisible(true)
-        );
-    }
-
-    const handleOnFormUnVisible = () => {
-        return (
-            setVisible(false)
-        );
-    }
+type AuthorSectionProps = {
+    onFormVisible : () => void,
+	onFormUnVisible : () => void,
+    visible:boolean,
+    authorList:IAuthor[],
+    onAuthorDelete : (index:number) => void,
+}
+const AuthorSection:React.FC<AuthorSectionProps> = (props) => {
 
     return (
         <Row className='author-section mx-4 mx-sm-5'>
@@ -27,13 +21,14 @@ const AuthorSection:React.FC = () => {
                 <AuthorTitle/>
             </Col>
             <Col xs={12} className="p-0">
-                <AuthorList/>
+                <AuthorList authorList = {props.authorList}
+                            onAuthorDelete = {props.onAuthorDelete}/>
             </Col>
             <Col xs={12} className="p-0">
-                <AddAuthor formVisible = {handleOnFormVisible}/>
+                <AddAuthor formVisible = {props.onFormVisible}/>
             </Col>
             <Col xs={12} sm={9} className="p-0">
-                {visible?<AuthorForm formUnVisible = {handleOnFormUnVisible}/>:null}
+                {props.visible?<AuthorForm formUnVisible = {props.onFormUnVisible}/>:null}
             </Col>
         </Row>
     )
