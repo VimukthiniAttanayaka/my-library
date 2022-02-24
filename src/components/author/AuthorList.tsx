@@ -5,6 +5,9 @@ import Author from "./Author";
 
 const AuthorList:React.FC = () => {
     const authors:IAuthor[] = [
+        {name:"vimu"},
+        {name:"vimu"},
+        {name:"vimu"},
     ]
 
     const randerAuthor = () => {
