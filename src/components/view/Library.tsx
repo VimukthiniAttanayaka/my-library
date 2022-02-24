@@ -6,12 +6,11 @@ import Welcome from "../welcome/Welcome";
 import { IAuthor } from "../types/LibraryTypes";
 
 const Library: React.FC = () => {
-
   const authors: IAuthor[] = [
     { name: "vimu" },
     { name: "vimu" },
     { name: "vimu" },
-  ]
+  ];
 
   const [visible, setVisible] = useState(false);
   const [authorList, setAuthorList] = useState<IAuthor[]>(authors);
@@ -25,8 +24,15 @@ const Library: React.FC = () => {
   };
 
   const handleOnAuthorDelete = (index: number) => {
-    const allAuthor:IAuthor[] = authorList.slice();
+    const allAuthor: IAuthor[] = authorList.slice();
     allAuthor.splice(index, 1);
+    setAuthorList(allAuthor);
+  };
+
+  const handleOnAuthorCreate = (newAuther:IAuthor) => {
+    const index = authorList.length;
+    const allAuthor: IAuthor[] = authorList.slice();
+    allAuthor.splice(index, 1, newAuther);
     setAuthorList(allAuthor);
   };
 
@@ -45,8 +51,9 @@ const Library: React.FC = () => {
             onFormVisible={handleOnFormVisible}
             onFormUnVisible={handleOnFormUnVisible}
             visible={visible}
-            authorList = {authorList}
+            authorList={authorList}
             onAuthorDelete={handleOnAuthorDelete}
+            onAuthorCreate={handleOnAuthorCreate}
           />
         </Col>
         <Col
@@ -54,7 +61,7 @@ const Library: React.FC = () => {
           md={{ span: 6, order: 1 }}
           className="px-0 mx-0"
         >
-          <BookSection />
+          <BookSection authorList={authorList}/>
         </Col>
       </Row>
     </Container>
