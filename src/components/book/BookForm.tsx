@@ -75,6 +75,8 @@ const BookForm: React.FC<BookForm> = (props) => {
       setBookPrice("");
       setBookAuthor(null);
       setValidated(true);
+      setAuthorMsg("author-valied");
+      setBookAuthorValied("");
     } else {
       const newBook: IBook = {
         name: bookName,
@@ -86,6 +88,8 @@ const BookForm: React.FC<BookForm> = (props) => {
       setBookPrice("");
       setBookAuthor(null);
       setValidated(true);
+      setAuthorMsg("author-valied");
+      setBookAuthorValied("");
     }
     setValidated(false);
   };
@@ -129,7 +133,7 @@ const BookForm: React.FC<BookForm> = (props) => {
               }
             />
             <Form.Control.Feedback type="invalid">
-              Enter Book Name
+              Enter Valied Book Name
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
@@ -145,7 +149,7 @@ const BookForm: React.FC<BookForm> = (props) => {
               }}
             />
             <Form.Control.Feedback type="invalid">
-              Enter Book Price
+              Enter Valied Book Price
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
@@ -161,7 +165,7 @@ const BookForm: React.FC<BookForm> = (props) => {
               }}
             />
             {!updateBook && !bookAuthor && <p className={autherMsg}>
-              Enter Book Name
+              Enter Valied Book Author
             </p>}
           </Form.Group>
           <Button type="submit" className="book-submit">
