@@ -6,6 +6,7 @@ import Book from "./Book";
 type BookListProps = {
     bookList:IBook[],
     onBookDelete : (index:number) => void,
+    onBookUpdateSet : (index:number) => void,
 }
 const BookList:React.FC<BookListProps> = (props) => {
 
@@ -21,7 +22,8 @@ const BookList:React.FC<BookListProps> = (props) => {
                 {
                     props.bookList.map((book:IBook, index:number) =>
                             <Book book={book} index={index} key={index}
-                            deleteBook = {props.onBookDelete}/>
+                            deleteBook = {props.onBookDelete}
+                            onBookUpdateSet={props.onBookUpdateSet}/>
                     )
                 }
                 </ul>

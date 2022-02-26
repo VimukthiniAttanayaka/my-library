@@ -8,6 +8,7 @@ type BookProps = {
     book:IBook,
     index:number,
     deleteBook : (index:number) => void,
+    onBookUpdateSet : (index:number) => void,
 }
 const Book:React.FC<BookProps> = (props) => {
     const {book, index} = props
@@ -27,6 +28,9 @@ const Book:React.FC<BookProps> = (props) => {
             }
           })
     }
+    const updateBook = () => {
+        props.onBookUpdateSet(index);
+    }
     return (
         <Row className="book py-1">
             <Col xs={8} className="p-0">
@@ -34,7 +38,7 @@ const Book:React.FC<BookProps> = (props) => {
             </Col>
             <Col xs={4}>
                 <Trash2 className="delete text-danger ms-2 mt-1" onClick={deleteBook}/>
-                <Edit className="edit text-warning ms-2 mt-1"/>
+                <Edit className="edit text-warning ms-2 mt-1" onClick={updateBook}/>
             </Col>
         </Row>
     )

@@ -6,21 +6,21 @@ import Welcome from "../welcome/Welcome";
 import { IAuthor } from "../types/LibraryTypes";
 
 const Library: React.FC = () => {
-  const authors: IAuthor[] = [
-    { name: "vimu" },
-    { name: "vimu" },
-    { name: "vimu" },
-  ];
+  const authors: IAuthor[] = [];
 
   const [visible, setVisible] = useState(false);
   const [authorList, setAuthorList] = useState<IAuthor[]>(authors);
+  const [updateIndex, setUpdateIndex] = useState<number | null>(null);
+  const [updateAuthor, setUpdateAuthor] = useState<IAuthor | null>(null);
 
   const handleOnFormVisible = () => {
     return setVisible(true);
   };
 
   const handleOnFormUnVisible = () => {
-    return setVisible(false);
+    setVisible(false);
+    setUpdateAuthor(null);
+    setUpdateIndex(null);
   };
 
   const handleOnAuthorDelete = (index: number) => {
@@ -29,11 +29,28 @@ const Library: React.FC = () => {
     setAuthorList(allAuthor);
   };
 
-  const handleOnAuthorCreate = (newAuther:IAuthor) => {
+  const handleOnAuthorCreate = (newAuther: IAuthor) => {
     const index = authorList.length;
     const allAuthor: IAuthor[] = authorList.slice();
     allAuthor.splice(index, 1, newAuther);
     setAuthorList(allAuthor);
+  };
+
+  const handleOnAuthorUpdate = (newAuther: IAuthor) => {
+    if (!updateIndex) {
+      return;
+    }
+    const allAuthor: IAuthor[] = authorList.slice();
+    allAuthor.splice(updateIndex - 1, 1, newAuther);
+    setAuthorList(allAuthor);
+    setUpdateAuthor(null);
+    setUpdateIndex(null);
+  };
+
+  const handleOnAuthorUpdateSet = (index: number) => {
+    setUpdateIndex(index + 1);
+    setUpdateAuthor(authorList[index]);
+    setVisible(true);
   };
 
   return (
@@ -54,6 +71,9 @@ const Library: React.FC = () => {
             authorList={authorList}
             onAuthorDelete={handleOnAuthorDelete}
             onAuthorCreate={handleOnAuthorCreate}
+            onAuthorUpdateSet={handleOnAuthorUpdateSet}
+            updateAuthor={updateAuthor}
+            handleOnAuthorUpdate={handleOnAuthorUpdate}
           />
         </Col>
         <Col
@@ -61,7 +81,7 @@ const Library: React.FC = () => {
           md={{ span: 6, order: 1 }}
           className="px-0 mx-0"
         >
-          <BookSection authorList={authorList}/>
+          <BookSection authorList={authorList} />
         </Col>
       </Row>
     </Container>
