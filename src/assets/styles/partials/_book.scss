@@ -15,14 +15,22 @@
             margin: 0;
         }
         .edit{
+            display: none;
             float: right;
         }
         .delete{
+            display: none;
             float: right;
         }
     }
     .book:hover{
         background-color: #f5f5f5;
+        .edit{
+            display: block;
+        }
+        .delete{
+            display: block;
+        }
     }
     .add-book{
         .plus{
@@ -67,6 +75,14 @@
 @media(min-width:576px){
     .book-form{
         padding-left: 2rem !important;
+    }
+}
+@media(max-width:1200px){
+    .edit{
+        display: block !important;
+    }
+    .delete{
+        display: block !important;
     }
 }
 .form-control{

@@ -16,13 +16,21 @@
         }
         .edit{
             float: right;
+            display: none;
         }
         .delete{
             float: right;
+            display: none;
         }
     }
     .author:hover{
         background-color: #f5f5f5;
+        .edit{
+            display: block;
+        }
+        .delete{
+            display: block;
+        }
     }
     .add-author{
         .plus{
