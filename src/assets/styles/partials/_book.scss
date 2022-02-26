@@ -80,3 +80,27 @@
 .css-1s2u09g-control {
     border: none !important;
 }
+.css-1pahdxg-control {
+    box-shadow: 0 0 0 1px #198754 !important;
+    border-color: #198754 !important;
+}
+.author-valied{
+    display: none;
+}
+.author-invalied{
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+.selectinvalid {
+    border: 2px solid #dc3545 !important;
+    border-radius: 0 !important;
+    border-radius: 3px;
+  }
+  .selectinvalid1 {
+    border: 2px solid #198754 !important;
+    border-radius: 0 !important;
+    border-radius: 3px;
+  }

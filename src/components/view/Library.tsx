@@ -10,8 +10,8 @@ const Library: React.FC = () => {
 
   const [visible, setVisible] = useState(false);
   const [authorList, setAuthorList] = useState<IAuthor[]>(authors);
-  const [updateIndex, setUpdateIndex] = useState<number|null>(null);
-  const [updateAuthor, setUpdateAuthor] = useState<IAuthor|null>(null);
+  const [updateIndex, setUpdateIndex] = useState<number | null>(null);
+  const [updateAuthor, setUpdateAuthor] = useState<IAuthor | null>(null);
 
   const handleOnFormVisible = () => {
     return setVisible(true);
@@ -29,26 +29,26 @@ const Library: React.FC = () => {
     setAuthorList(allAuthor);
   };
 
-  const handleOnAuthorCreate = (newAuther:IAuthor) => {
+  const handleOnAuthorCreate = (newAuther: IAuthor) => {
     const index = authorList.length;
     const allAuthor: IAuthor[] = authorList.slice();
     allAuthor.splice(index, 1, newAuther);
     setAuthorList(allAuthor);
   };
 
-  const handleOnAuthorUpdate = (newAuther:IAuthor) => {
-    if(!updateIndex){
+  const handleOnAuthorUpdate = (newAuther: IAuthor) => {
+    if (!updateIndex) {
       return;
     }
     const allAuthor: IAuthor[] = authorList.slice();
-    allAuthor.splice(updateIndex-1, 1, newAuther);
+    allAuthor.splice(updateIndex - 1, 1, newAuther);
     setAuthorList(allAuthor);
     setUpdateAuthor(null);
     setUpdateIndex(null);
   };
 
-  const handleOnAuthorUpdateSet = (index:number) => {
-    setUpdateIndex(index+1);
+  const handleOnAuthorUpdateSet = (index: number) => {
+    setUpdateIndex(index + 1);
     setUpdateAuthor(authorList[index]);
     setVisible(true);
   };
@@ -81,7 +81,7 @@ const Library: React.FC = () => {
           md={{ span: 6, order: 1 }}
           className="px-0 mx-0"
         >
-          <BookSection authorList={authorList}/>
+          <BookSection authorList={authorList} />
         </Col>
       </Row>
     </Container>
