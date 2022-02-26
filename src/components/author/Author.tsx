@@ -9,6 +9,7 @@ type AuthorProps = {
     author:IAuthor,
     index:number,
     deleteAuthor : (index:number) => void,
+    onAuthorUpdateSet : (index:number) =>void,
 }
 const Author:React.FC<AuthorProps> = (props) => {
     const {author, index} = props
@@ -28,6 +29,9 @@ const Author:React.FC<AuthorProps> = (props) => {
             }
           })
     }
+    const updateAuthor = () => {
+        props.onAuthorUpdateSet(index);
+    }
     return (
         <Row className="author py-1">
             <Col xs={8} className="p-0">
@@ -35,7 +39,7 @@ const Author:React.FC<AuthorProps> = (props) => {
             </Col>
             <Col xs={4}>
                 <Trash2 className="delete text-danger ms-2 mt-1" onClick={deleteAuthor}/>
-                <Edit className="edit text-warning ms-2 mt-1"/>
+                <Edit className="edit text-warning ms-2 mt-1" onClick={updateAuthor}/>
             </Col>
         </Row>
     )

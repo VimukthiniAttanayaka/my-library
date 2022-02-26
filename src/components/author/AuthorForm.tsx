@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
 import { IAuthor } from "../types/LibraryTypes";
@@ -6,9 +6,11 @@ import { IAuthor } from "../types/LibraryTypes";
 type AuthorForm = {
   formUnVisible: () => void,
   onAuthorCreate : (newAuther:IAuthor) => void,
+  updateAuthor : (IAuthor|null),
+  onAuthorUpdate : (newAuthor:IAuthor) => void
 }
 const AuthorForm: React.FC<AuthorForm> = (props) => {
-  const {formUnVisible} = props;
+  const {formUnVisible, updateAuthor} = props;
   
   const [validated, setValidated] = useState(false);
   const [authorName, setAuthorName] = useState<string>("");
@@ -16,6 +18,14 @@ const AuthorForm: React.FC<AuthorForm> = (props) => {
   const handleOnAuthorNameChanged = (name:string) => {
     setAuthorName(name);
   }
+
+  useEffect (() => {
+    if(!updateAuthor){
+      return;
+    }
+    setAuthorName(updateAuthor.name);
+
+  },[updateAuthor])
 
   const handleSubmit = (event: any) => {
     const form = event.currentTarget;
@@ -28,7 +38,12 @@ const AuthorForm: React.FC<AuthorForm> = (props) => {
     if(!authorName){
       return;
     }
-    else{
+    else if(updateAuthor) {
+      const newAuthor:IAuthor = {name:authorName}
+      props.onAuthorUpdate(newAuthor);
+      setAuthorName("");
+    }
+    else {
       const newAuthor:IAuthor = {name:authorName}
       props.onAuthorCreate(newAuthor);
       setAuthorName("");
@@ -38,7 +53,7 @@ const AuthorForm: React.FC<AuthorForm> = (props) => {
   return (
     <Row className="author-form-area mb-5">
       <Col xs={11} className="p-0 mb-3 ps-1">
-        <h4>Create Author</h4>
+        <h4>{updateAuthor? "Update " : "Create "} Author</h4>
       </Col>
       <Col xs={1} className="p-0">
         <XCircle className="form-close" onClick={formUnVisible}/>
@@ -59,7 +74,7 @@ const AuthorForm: React.FC<AuthorForm> = (props) => {
               Enter Author Name
             </Form.Control.Feedback>
           </Form.Group>
-          <Button type="submit" className="author-submit">Create</Button>
+          <Button type="submit" className="author-submit"> {updateAuthor? "Update" : "Create" }</Button>
         </Form>
       </Col>
     </Row>

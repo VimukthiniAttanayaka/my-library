@@ -13,6 +13,9 @@ type AuthorSectionProps = {
     authorList:IAuthor[],
     onAuthorDelete : (index:number) => void,
     onAuthorCreate : (newAuther:IAuthor) => void,
+    onAuthorUpdateSet : (index:number) =>void,
+    updateAuthor : (IAuthor|null),
+    handleOnAuthorUpdate : (newAuthor:IAuthor) => void
 }
 const AuthorSection:React.FC<AuthorSectionProps> = (props) => {
 
@@ -23,14 +26,17 @@ const AuthorSection:React.FC<AuthorSectionProps> = (props) => {
             </Col>
             <Col xs={12} className="p-0">
                 <AuthorList authorList = {props.authorList}
-                            onAuthorDelete = {props.onAuthorDelete}/>
+                            onAuthorDelete = {props.onAuthorDelete}
+                            onAuthorUpdateSet = {props.onAuthorUpdateSet}/>
             </Col>
             <Col xs={12} className="p-0">
                 <AddAuthor formVisible = {props.onFormVisible}/>
             </Col>
             <Col xs={12} sm={9} className="p-0">
                 {props.visible?<AuthorForm formUnVisible = {props.onFormUnVisible}
-                                            onAuthorCreate = {props.onAuthorCreate}/>:null}
+                                            onAuthorCreate = {props.onAuthorCreate}
+                                            updateAuthor={props.updateAuthor}
+                                            onAuthorUpdate={props.handleOnAuthorUpdate}/>:null}
             </Col>
         </Row>
     )
