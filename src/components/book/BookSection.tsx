@@ -65,8 +65,11 @@ const BookSection: React.FC<BookSectionProps> = (props) => {
         <BookTitle />
       </Col>
       <Col xs={12} className="p-0">
-        <BookList bookList={bookList} onBookDelete={handleOnBookDelete} 
-                  onBookUpdateSet={handleOnBookUpdateSet}/>
+        <BookList
+          bookList={bookList}
+          onBookDelete={handleOnBookDelete}
+          onBookUpdateSet={handleOnBookUpdateSet}
+        />
       </Col>
       <Col xs={12} className="p-0">
         <AddBook formVisible={handleOnFormVisible} />
