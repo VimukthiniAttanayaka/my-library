@@ -39,8 +39,8 @@ const Book: React.FC<BookProps> = (props) => {
         </p>
       </Col>
       <Col xs={4}>
-        <Trash2 className="delete text-danger ms-2 mt-1" onClick={deleteBook} />
-        <Edit className="edit text-warning ms-2 mt-1" onClick={updateBook} />
+        <Trash2 className="delete text-danger ms-3 mt-1" onClick={deleteBook} />
+        <Edit className="edit text-warning ms-3 mt-1" onClick={updateBook} />
       </Col>
     </Row>
   );

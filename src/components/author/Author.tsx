@@ -40,11 +40,8 @@ const Author: React.FC<AuthorProps> = (props) => {
         </p>
       </Col>
       <Col xs={4}>
-        <Trash2
-          className="delete text-danger ms-2 mt-1"
-          onClick={deleteAuthor}
-        />
-        <Edit className="edit text-warning ms-2 mt-1" onClick={updateAuthor} />
+        <Trash2 className="delete text-danger ms-3 mt-1" onClick={deleteAuthor}/>
+        <Edit className="edit text-warning ms-3 mt-1" onClick={updateAuthor} />
       </Col>
     </Row>
   );
