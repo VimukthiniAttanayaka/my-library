@@ -1,7 +1,6 @@
-import { type } from "os";
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor } from "../types/LibraryTypes";
+import { IAuthor } from "../../../types/LibraryTypes";
 import { Trash2, Edit } from "react-feather";
 import Swal from "sweetalert2";
 
@@ -40,11 +39,8 @@ const Author: React.FC<AuthorProps> = (props) => {
         </p>
       </Col>
       <Col xs={4}>
-        <Trash2
-          className="delete text-danger ms-2 mt-1"
-          onClick={deleteAuthor}
-        />
-        <Edit className="edit text-warning ms-2 mt-1" onClick={updateAuthor} />
+        <Trash2 className="delete text-danger ms-3 mt-1" onClick={deleteAuthor}/>
+        <Edit className="edit text-warning ms-3 mt-1" onClick={updateAuthor} />
       </Col>
     </Row>
   );

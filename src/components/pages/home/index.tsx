@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
-import AuthorSection from "../author/AuthorSection";
-import BookSection from "../book/BookSection";
-import Welcome from "../welcome/Welcome";
-import { IAuthor } from "../types/LibraryTypes";
+import AuthorSection from "./author/AuthorSection";
+import BookSection from "./book/BookSection";
+import Welcome from "./welcome/Welcome";
+import { IAuthor } from "../../types/LibraryTypes";
 
-const Library: React.FC = () => {
+const Home: React.FC = () => {
   const authors: IAuthor[] = [];
 
   const [visible, setVisible] = useState(false);
@@ -87,4 +87,4 @@ const Library: React.FC = () => {
     </Container>
   );
 };
-export default Library;
+export default Home;

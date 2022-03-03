@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor, IBook } from "../types/LibraryTypes";
+import { IAuthor, IBook } from "../../../types/LibraryTypes";
 import AddBook from "./AddBook";
 import BookForm from "./BookForm";
 import BookList from "./BookList";
@@ -10,7 +10,6 @@ type BookSectionProps = {
   authorList: IAuthor[];
 };
 const BookSection: React.FC<BookSectionProps> = (props) => {
-  const { authorList } = props;
 
   const books: IBook[] = [];
 
@@ -65,8 +64,11 @@ const BookSection: React.FC<BookSectionProps> = (props) => {
         <BookTitle />
       </Col>
       <Col xs={12} className="p-0">
-        <BookList bookList={bookList} onBookDelete={handleOnBookDelete} 
-                  onBookUpdateSet={handleOnBookUpdateSet}/>
+        <BookList
+          bookList={bookList}
+          onBookDelete={handleOnBookDelete}
+          onBookUpdateSet={handleOnBookUpdateSet}
+        />
       </Col>
       <Col xs={12} className="p-0">
         <AddBook formVisible={handleOnFormVisible} />

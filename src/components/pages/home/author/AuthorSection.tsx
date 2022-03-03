@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor } from "../types/LibraryTypes";
+import { IAuthor } from "../../../types/LibraryTypes";
 import AddAuthor from "./AddAuthor";
 import AuthorForm from "./AuthorForm";
 import AuthorList from "./AuthorList";

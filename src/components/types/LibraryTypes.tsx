@@ -1,14 +1,14 @@
 export interface IAuthor {
-    name:string
+  name: string;
 }
 
 export interface IBook {
-    name:string,
-    price:string,
-    author:string
+  name: string;
+  price: string;
+  author: string;
 }
 
 export interface AuthorDropDown {
-    value:string,
-    label:string
+  value: string;
+  label: string;
 }

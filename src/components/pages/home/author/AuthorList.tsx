@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor } from "../types/LibraryTypes";
+import { IAuthor } from "../../../types/LibraryTypes";
 import Author from "./Author";
 
 type AuthorListProps = {
@@ -10,7 +10,7 @@ type AuthorListProps = {
 };
 const AuthorList: React.FC<AuthorListProps> = (props) => {
   const randerAuthor = () => {
-    if (props.authorList.length == 0) {
+    if (props.authorList.length === 0) {
       return (
         <p className="empty-author mt-2">
           <i>No Author Listed Here</i>
