@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
-import { IAuthor } from "../types/LibraryTypes";
+import { IAuthor } from "../../../types/LibraryTypes";
 
 type AuthorForm = {
   formUnVisible: () => void;

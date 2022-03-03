@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.scss';
-import Library from './components/view/Library';
+import Layout from './layout';
 
 const App:React.FC = () => {
   	return (
     	<div className="App">
-			<Library/>
+			<Layout/>
     	</div>
   	);
 }

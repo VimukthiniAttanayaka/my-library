@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor } from "../types/LibraryTypes";
+import { IAuthor } from "../../../types/LibraryTypes";
 import Author from "./Author";
 
 type AuthorListProps = {

@@ -3,7 +3,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
 import NumberFormat from "react-number-format";
 import Select from "react-select";
-import { AuthorDropDown, IAuthor, IBook } from "../types/LibraryTypes";
+import { AuthorDropDown, IAuthor, IBook } from "../../../types/LibraryTypes";
 
 type BookForm = {
   formUnVisible: () => void;
@@ -20,37 +20,39 @@ const BookForm: React.FC<BookForm> = (props) => {
   const [bookPrice, setBookPrice] = useState<string>("");
   const [bookAuthor, setBookAuthor] = useState<AuthorDropDown | null>(null);
   const [bookAuthorValied, setBookAuthorValied] = useState<string>("");
-  const [autherMsg, setAuthorMsg] = useState<string>("author-valied")
+  const [autherMsg, setAuthorMsg] = useState<string>("author-valied");
   const options = props.authorList.map((author: IAuthor) => {
     return { value: author.name, label: author.name };
   });
 
-  const handleOnBookNameChanged = (name:string) => {
+  const handleOnBookNameChanged = (name: string) => {
     setBookName(name);
-  }
+  };
 
-  const handleOnPriceChanged = (price:string) => {
+  const handleOnPriceChanged = (price: string) => {
     setBookPrice(price);
-  }
+  };
 
-  const handleOnBookAuthorChanged = (author:AuthorDropDown|null) => {
-    if(!author){
+  const handleOnBookAuthorChanged = (author: AuthorDropDown | null) => {
+    if (!author) {
       return;
     }
     setBookAuthor(author);
-    setBookAuthorValied("yes")
-  }
+    setBookAuthorValied("yes");
+  };
 
   useEffect(() => {
-    if(!updateBook){
+    if (!updateBook) {
       return;
     }
-    const updateBookAuthor:AuthorDropDown = {value: updateBook.author, label: updateBook.author}
+    const updateBookAuthor: AuthorDropDown = {
+      value: updateBook.author,
+      label: updateBook.author,
+    };
     setBookName(updateBook.name);
     setBookPrice(updateBook.price);
     setBookAuthor(updateBookAuthor);
-
-  },[updateBook])
+  }, [updateBook]);
   const handleSubmit = (event: any) => {
     setAuthorMsg("author-invalied");
     const form = event.currentTarget;
@@ -66,9 +68,10 @@ const BookForm: React.FC<BookForm> = (props) => {
     if (!bookName || !bookPrice || !bookAuthor) {
       return;
     } else if (updateBook) {
-      const newBook: IBook = { name: bookName,
+      const newBook: IBook = {
+        name: bookName,
         price: bookPrice,
-        author: bookAuthor.value, 
+        author: bookAuthor.value,
       };
       props.onBookUpdate(newBook);
       setBookName("");
@@ -97,17 +100,14 @@ const BookForm: React.FC<BookForm> = (props) => {
   const bookAuthorValidate = () => {
     if (bookAuthor == null && bookAuthorValied == "") {
       return "formInput";
-    }
-    else if (bookAuthor == null && bookAuthorValied == "yes") {
+    } else if (bookAuthor == null && bookAuthorValied == "yes") {
       return "selectinvalid";
-    }
-    else if (bookAuthor !== null && bookAuthorValied == "") {
+    } else if (bookAuthor !== null && bookAuthorValied == "") {
       return "formInput";
-    }
-    else {
+    } else {
       return "selectinvalid1";
     }
-  }
+  };
 
   return (
     <Row className="book-form-area mb-5">
@@ -156,17 +156,19 @@ const BookForm: React.FC<BookForm> = (props) => {
             <Form.Label className="book-name-label pt-4 pb-1">
               Author
             </Form.Label>
-            <Select className={bookAuthorValidate()}
+            <Select
+              className={bookAuthorValidate()}
               options={options}
+              isSearchable={true}
               isClearable={true}
               value={bookAuthor}
               onChange={(selected: AuthorDropDown | null) => {
                 handleOnBookAuthorChanged(selected);
               }}
             />
-            {!updateBook && !bookAuthor && <p className={autherMsg}>
-              Enter Valied Book Author
-            </p>}
+            {!updateBook && !bookAuthor && (
+              <p className={autherMsg}>Enter Valied Book Author</p>
+            )}
           </Form.Group>
           <Button type="submit" className="book-submit">
             Create
