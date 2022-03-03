@@ -5,14 +5,14 @@ import NumberFormat from "react-number-format";
 import Select from "react-select";
 import { AuthorDropDown, IAuthor, IBook } from "../../../types/LibraryTypes";
 
-type BookForm = {
+type BookFormProps = {
   formUnVisible: () => void;
   onBookCreate: (newBook: IBook) => void;
   authorList: IAuthor[];
   updateBook: IBook | null;
   onBookUpdate: (newBook: IBook) => void;
 };
-const BookForm: React.FC<BookForm> = (props) => {
+const BookForm: React.FC<BookFormProps> = (props) => {
   const { formUnVisible, updateBook } = props;
 
   const [validated, setValidated] = useState(false);
@@ -98,11 +98,11 @@ const BookForm: React.FC<BookForm> = (props) => {
   };
 
   const bookAuthorValidate = () => {
-    if (bookAuthor == null && bookAuthorValied == "") {
+    if (bookAuthor === null && bookAuthorValied === "") {
       return "formInput";
-    } else if (bookAuthor == null && bookAuthorValied == "yes") {
+    } else if (bookAuthor === null && bookAuthorValied === "yes") {
       return "selectinvalid";
-    } else if (bookAuthor !== null && bookAuthorValied == "") {
+    } else if (bookAuthor !== null && bookAuthorValied === "") {
       return "formInput";
     } else {
       return "selectinvalid1";

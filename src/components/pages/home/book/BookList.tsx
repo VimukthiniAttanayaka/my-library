@@ -10,7 +10,7 @@ type BookListProps = {
 };
 const BookList: React.FC<BookListProps> = (props) => {
   const randerBook = () => {
-    if (props.bookList.length == 0) {
+    if (props.bookList.length === 0) {
       return (
         <p className="empty-book mt-2">
           <i>No Book Listed Here</i>

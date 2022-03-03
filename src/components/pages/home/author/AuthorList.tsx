@@ -10,7 +10,7 @@ type AuthorListProps = {
 };
 const AuthorList: React.FC<AuthorListProps> = (props) => {
   const randerAuthor = () => {
-    if (props.authorList.length == 0) {
+    if (props.authorList.length === 0) {
       return (
         <p className="empty-author mt-2">
           <i>No Author Listed Here</i>

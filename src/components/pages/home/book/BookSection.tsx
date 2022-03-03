@@ -10,7 +10,6 @@ type BookSectionProps = {
   authorList: IAuthor[];
 };
 const BookSection: React.FC<BookSectionProps> = (props) => {
-  const { authorList } = props;
 
   const books: IBook[] = [];
 
