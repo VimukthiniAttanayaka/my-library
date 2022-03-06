@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         <Col
           xs={{ span: 12, order: 1 }}
           md={{ span: 6, order: 2 }}
-          className="px-0 mx-0"
+          className="px-sm-0 mx-0 px-3"
         >
           <AuthorSection
             onFormVisible={handleOnFormVisible}
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
         <Col
           xs={{ span: 12, order: 2 }}
           md={{ span: 6, order: 1 }}
-          className="px-0 mx-0"
+          className="px-sm-0 mx-0 px-3"
         >
           <BookSection authorList={authorList} />
         </Col>

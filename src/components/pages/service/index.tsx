@@ -4,7 +4,7 @@ import { Row } from "react-bootstrap";
 const Service:React.FC = () => {
     return (
         <Row>
-dfvd
+            <h1>Service</h1>
         </Row>
     )
 }
