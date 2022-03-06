@@ -9,10 +9,10 @@ const NavbarPage: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Link href="/" className="ps-4 ps-md-0">Home</Nav.Link>
-            <Nav.Link href="/about" className="ps-4 ps-md-0">About</Nav.Link>
-            <Nav.Link href="/contact" className="ps-4 ps-md-0">Contact</Nav.Link>
-            <Nav.Link href="/service" className="ps-4 ps-md-0">Service</Nav.Link>
+            <Nav.Link href="/" className="ps-4 ps-md-0 ps-lg-3">Home</Nav.Link>
+            <Nav.Link href="/about" className="ps-4 ps-md-0 ps-lg-3">About</Nav.Link>
+            <Nav.Link href="/contact" className="ps-4 ps-md-0 ps-lg-3">Contact</Nav.Link>
+            <Nav.Link href="/service" className="ps-4 ps-md-0 ps-lg-3">Service</Nav.Link>
           </Nav>
           {/* <Form className="d-flex nav-search-1">
           <Search />
