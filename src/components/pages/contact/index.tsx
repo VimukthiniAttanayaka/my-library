@@ -4,7 +4,7 @@ import { Row } from "react-bootstrap";
 const Contact:React.FC = () => {
     return (
         <Row>
-edfs
+            <h1>Contact</h1>
         </Row>
     )
 }

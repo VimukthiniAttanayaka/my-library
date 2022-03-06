@@ -4,7 +4,7 @@ import { Row } from "react-bootstrap";
 const AboutUs:React.FC = () => {
     return (
         <Row>
-sd
+            <h1>About Us</h1>
         </Row>
     )
 }
