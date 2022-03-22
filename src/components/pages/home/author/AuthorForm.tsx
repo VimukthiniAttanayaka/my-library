@@ -4,13 +4,14 @@ import { XCircle } from "react-feather";
 import { IAuthor } from "../../../types/LibraryTypes";
 
 type AuthorFormProps = {
-  formUnVisible: () => void;
-  onAuthorCreate: (newAuther: IAuthor) => void;
+  onFormClose: () => void;
+  onAuthorCreate: (newAuthor: IAuthor) => void;
   updateAuthor: IAuthor | null;
   onAuthorUpdate: (newAuthor: IAuthor) => void;
 };
+
 const AuthorForm: React.FC<AuthorFormProps> = (props) => {
-  const { formUnVisible, updateAuthor } = props;
+  const { onFormClose, updateAuthor, onAuthorCreate, onAuthorUpdate } = props;
 
   const [validated, setValidated] = useState(false);
   const [authorName, setAuthorName] = useState<string>("");
@@ -27,33 +28,34 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
   }, [updateAuthor]);
 
   const handleSubmit = (event: any) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-    event.preventDefault();
     setValidated(true);
     if (!authorName) {
       return;
     } else if (updateAuthor) {
       const newAuthor: IAuthor = { name: authorName };
-      props.onAuthorUpdate(newAuthor);
+      onAuthorUpdate(newAuthor);
       setAuthorName("");
     } else {
       const newAuthor: IAuthor = { name: authorName };
-      props.onAuthorCreate(newAuthor);
+      onAuthorCreate(newAuthor);
       setAuthorName("");
     }
     setValidated(false);
   };
+
   return (
     <Row className="author-form-area mb-5">
-      <Col xs={11} className="p-0 mb-3 ps-1">
+      <Col xs={11} className="p-0 mb-2 ps-md-1">
         <h4>{updateAuthor ? "Update " : "Create "} Author</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={formUnVisible} />
+        <XCircle className="form-close mt-1" onClick={onFormClose} />
       </Col>
       <Col xs={12} className="p-0 author-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -75,7 +77,6 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Button type="submit" className="author-submit">
-            {" "}
             {updateAuthor ? "Update" : "Create"}
           </Button>
         </Form>

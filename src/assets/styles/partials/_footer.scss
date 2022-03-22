@@ -8,6 +8,7 @@
         padding: 2px 25px;
         border-radius: 5px;
         float: right;
+        cursor: pointer !important;
     }
     .social-media{
         justify-content: center;
@@ -21,5 +22,14 @@
         justify-content: center;
         font-size: 70%;
         opacity: 0.5;
+    }
+    .phone{
+        cursor: pointer;
+    }
+    .email{
+        cursor: pointer;
+    }
+    .social img{
+        cursor: pointer;
     }
 }

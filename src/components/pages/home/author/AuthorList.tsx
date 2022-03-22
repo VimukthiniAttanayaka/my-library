@@ -8,34 +8,38 @@ type AuthorListProps = {
   onAuthorDelete: (index: number) => void;
   onAuthorUpdateSet: (index: number) => void;
 };
+
 const AuthorList: React.FC<AuthorListProps> = (props) => {
-  const randerAuthor = () => {
-    if (props.authorList.length === 0) {
-      return (
-        <p className="empty-author mt-2">
-          <i>No Author Listed Here</i>
-        </p>
-      );
-    } else {
-      return (
-        <ul className="p-3 m-0">
-          {props.authorList.map((author: IAuthor, index: number) => (
-            <Author
-              author={author}
-              index={index}
-              key={index}
-              deleteAuthor={props.onAuthorDelete}
-              onAuthorUpdateSet={props.onAuthorUpdateSet}
-            />
-          ))}
-        </ul>
-      );
-    }
+  const { authorList, onAuthorDelete, onAuthorUpdateSet } = props;
+
+  if (props.authorList.length === 0) {
+    return (
+      <p className="empty-author mt-2">
+        <i>No Author Listed Here</i>
+      </p>
+    );
+  }
+
+  const renderAuthor = () => {
+    return (
+      <ul className="p-3 m-0">
+        {authorList.map((author: IAuthor, index: number) => (
+          <Author
+            author={author}
+            index={index}
+            key={index}
+            deleteAuthor={onAuthorDelete}
+            onAuthorUpdateSet={onAuthorUpdateSet}
+          />
+        ))}
+      </ul>
+    );
   };
+
   return (
     <Row>
       <Col xs={12} className="p-0">
-        {randerAuthor()}
+        {renderAuthor()}
       </Col>
     </Row>
   );

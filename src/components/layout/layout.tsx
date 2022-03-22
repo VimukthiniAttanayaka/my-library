@@ -1,20 +1,20 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import AppRoute from "./AppRoute";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
+import AppRoute from "../appRoute/AppRoute";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 const Layout: React.FC = () => {
   return (
     <Row className="layout mx-0">
       <Col xs={12} className="p-0">
-          <Navbar/>
+        <Navbar />
       </Col>
       <Col xs={12} className="p-0">
-        <AppRoute/>
+        <AppRoute />
       </Col>
       <Col xs={12}>
-        <Footer/>
+        <Footer />
       </Col>
     </Row>
   );

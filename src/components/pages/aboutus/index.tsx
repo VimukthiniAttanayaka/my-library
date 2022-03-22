@@ -1,11 +1,11 @@
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
-const AboutUs:React.FC = () => {
+const AboutUs: React.FC = () => {
     return (
-        <Row>
+        <Container fluid={true}>
             <h1>About Us</h1>
-        </Row>
+        </Container>
     )
 }
 export default AboutUs;

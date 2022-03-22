@@ -10,10 +10,11 @@ type AuthorProps = {
   deleteAuthor: (index: number) => void;
   onAuthorUpdateSet: (index: number) => void;
 };
-const Author: React.FC<AuthorProps> = (props) => {
-  const { author, index } = props;
 
-  const deleteAuthor = () => {
+const Author: React.FC<AuthorProps> = (props) => {
+  const { author, index, deleteAuthor, onAuthorUpdateSet } = props;
+
+  const handleOnClick = () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -24,13 +25,11 @@ const Author: React.FC<AuthorProps> = (props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        props.deleteAuthor(index);
+        deleteAuthor(index);
       }
     });
   };
-  const updateAuthor = () => {
-    props.onAuthorUpdateSet(index);
-  };
+
   return (
     <Row className="author py-1">
       <Col xs={8} className="p-0">
@@ -39,8 +38,8 @@ const Author: React.FC<AuthorProps> = (props) => {
         </p>
       </Col>
       <Col xs={4}>
-        <Trash2 className="delete text-danger ms-3 mt-1" onClick={deleteAuthor}/>
-        <Edit className="edit text-warning ms-3 mt-1" onClick={updateAuthor} />
+        <Trash2 className="delete text-danger ms-2 ms-sm-3 mt-1" onClick={handleOnClick} />
+        <Edit className="edit text-warning ms-2 ms-sm-3 mt-1" onClick={() => onAuthorUpdateSet(index)} />
       </Col>
     </Row>
   );
