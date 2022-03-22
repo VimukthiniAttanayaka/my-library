@@ -1,11 +1,11 @@
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
-const Service:React.FC = () => {
+const Service: React.FC = () => {
     return (
-        <Row>
+        <Container fluid={true}>
             <h1>Service</h1>
-        </Row>
+        </Container>
     )
 }
 export default Service;

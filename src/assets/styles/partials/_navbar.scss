@@ -6,45 +6,6 @@
     font-weight: 700;
   }
 }
-.nav-search-1 {
-  display: none !important;
-}
-.nav-search-2 {
-  display: flex !important;
-  border: 2px solid #a9a9a9;
-  border-radius: 5px;
-  .form-control {
-    border: none;
-    border-left: 1px dashed #a9a9a9;
-  }
-  svg {
-    margin: 5px 10px;
-    color: #a9a9a9;
-    cursor: pointer;
-  }
-}
-@media (max-width: 768px) {
-  .nav-search-2 {
-    display: none !important;
-  }
-  .nav-search-1 {
-    
-    display: flex !important;
-    position: absolute;
-    width: 100%;
-    border: 2px solid #a9a9a9;
-    border-radius: 5px;
-    .form-control {
-      border: none;
-      border-left: 1px dashed #a9a9a9;
-    }
-    svg {
-      margin: 5px 10px;
-      color: #a9a9a9;
-      cursor: pointer;
-    }
-  }
-}
 .navbar-light .navbar-toggler{
   border: none;
 }

@@ -3,13 +3,15 @@ import { Col, Row } from "react-bootstrap";
 import { Plus } from "react-feather";
 
 type AddAuthorProps = {
-  formVisible: () => void;
+  onFormOpen: () => void;
 };
+
 const AddAuthor: React.FC<AddAuthorProps> = (props) => {
-  const { formVisible } = props;
+  const { onFormOpen } = props;
+
   return (
     <Row>
-      <Col xs={12} className="p-0 add-author mb-5" onClick={formVisible}>
+      <Col xs={12} className="p-0 add-author mb-4 mb-md-5" onClick={onFormOpen}>
         <Plus className="plus me-1 me-md-2" />
         <span>Add Author</span>
       </Col>

@@ -1,11 +1,11 @@
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
-const Contact:React.FC = () => {
+const Contact: React.FC = () => {
     return (
-        <Row>
+        <Container fluid={true}>
             <h1>Contact</h1>
-        </Row>
+        </Container>
     )
 }
 export default Contact;

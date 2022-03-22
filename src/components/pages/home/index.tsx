@@ -4,59 +4,25 @@ import AuthorSection from "./author/AuthorSection";
 import BookSection from "./book/BookSection";
 import Welcome from "./welcome/Welcome";
 import { IAuthor } from "../../types/LibraryTypes";
+import { IBook } from "../../types/LibraryTypes";
 
 const Home: React.FC = () => {
-  const authors: IAuthor[] = [];
 
-  const [visible, setVisible] = useState(false);
-  const [authorList, setAuthorList] = useState<IAuthor[]>(authors);
-  const [updateIndex, setUpdateIndex] = useState<number | null>(null);
-  const [updateAuthor, setUpdateAuthor] = useState<IAuthor | null>(null);
+  const [authors, setAuthors] = useState<IAuthor[]>([]);
+  const [books, setBooks] = useState<IBook[]>([]);
 
-  const handleOnFormVisible = () => {
-    return setVisible(true);
+  const onAuthorListChange = (newAuthors: IAuthor[]) => {
+    setAuthors(newAuthors);
   };
 
-  const handleOnFormUnVisible = () => {
-    setVisible(false);
-    setUpdateAuthor(null);
-    setUpdateIndex(null);
-  };
-
-  const handleOnAuthorDelete = (index: number) => {
-    const allAuthor: IAuthor[] = authorList.slice();
-    allAuthor.splice(index, 1);
-    setAuthorList(allAuthor);
-  };
-
-  const handleOnAuthorCreate = (newAuther: IAuthor) => {
-    const index = authorList.length;
-    const allAuthor: IAuthor[] = authorList.slice();
-    allAuthor.splice(index, 1, newAuther);
-    setAuthorList(allAuthor);
-  };
-
-  const handleOnAuthorUpdate = (newAuther: IAuthor) => {
-    if (!updateIndex) {
-      return;
-    }
-    const allAuthor: IAuthor[] = authorList.slice();
-    allAuthor.splice(updateIndex - 1, 1, newAuther);
-    setAuthorList(allAuthor);
-    setUpdateAuthor(null);
-    setUpdateIndex(null);
-  };
-
-  const handleOnAuthorUpdateSet = (index: number) => {
-    setUpdateIndex(index + 1);
-    setUpdateAuthor(authorList[index]);
-    setVisible(true);
+  const onBookListChange = (newBooks: IBook[]) => {
+    setBooks(newBooks);
   };
 
   return (
     <Container fluid={true}>
       <Row>
-        <Col xs={12}>
+        <Col xs={12} className='px-0'>
           <Welcome />
         </Col>
         <Col
@@ -64,16 +30,8 @@ const Home: React.FC = () => {
           md={{ span: 6, order: 2 }}
           className="px-sm-0 mx-0 px-3"
         >
-          <AuthorSection
-            onFormVisible={handleOnFormVisible}
-            onFormUnVisible={handleOnFormUnVisible}
-            visible={visible}
-            authorList={authorList}
-            onAuthorDelete={handleOnAuthorDelete}
-            onAuthorCreate={handleOnAuthorCreate}
-            onAuthorUpdateSet={handleOnAuthorUpdateSet}
-            updateAuthor={updateAuthor}
-            handleOnAuthorUpdate={handleOnAuthorUpdate}
+          <AuthorSection books={books}
+            onAuthorListChange={onAuthorListChange}
           />
         </Col>
         <Col
@@ -81,7 +39,8 @@ const Home: React.FC = () => {
           md={{ span: 6, order: 1 }}
           className="px-sm-0 mx-0 px-3"
         >
-          <BookSection authorList={authorList} />
+          <BookSection authors={authors}
+            onBookListChange={onBookListChange} />
         </Col>
       </Row>
     </Container>

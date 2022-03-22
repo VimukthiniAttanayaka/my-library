@@ -1,12 +1,12 @@
 import React from "react";
 import { Row, Col, Image } from "react-bootstrap";
-import libraryimg from "../../../../assets/images/library.jpg";
+import libraryimg from "../../../../assets/images/library.webp";
 
 const Welcome: React.FC = () => {
   return (
     <Row className="welcome">
       <Col xs={12} className="p-0">
-        <Image src={libraryimg}></Image>
+        <Image src={libraryimg} alt='image in library' />
       </Col>
       <Col xs={12}>
         <p className="photo-credit px-lg-5 px-md-3 px-2 pt-1 pt-md-2">

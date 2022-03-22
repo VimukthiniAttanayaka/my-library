@@ -1,88 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { IAuthor, IBook } from "../../../types/LibraryTypes";
 import AddBook from "./AddBook";
 import BookForm from "./BookForm";
 import BookList from "./BookList";
 import BookTitle from "./BookTitle";
+import { useToasts } from 'react-toast-notifications';
 
 type BookSectionProps = {
-  authorList: IAuthor[];
+  authors: IAuthor[];
+  onBookListChange: (newBooks: IBook[]) => void;
 };
+
 const BookSection: React.FC<BookSectionProps> = (props) => {
 
-  const books: IBook[] = [];
+  const { addToast } = useToasts();
+  const { authors, onBookListChange } = props;
 
-  const [visible, setVisible] = useState(false);
-  const [bookList, setBookList] = useState<IBook[]>(books);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [books, setBooks] = useState<IBook[]>([]);
   const [updateIndex, setUpdateIndex] = useState<number | null>(null);
   const [updateBook, setUpdateBook] = useState<IBook | null>(null);
 
-  const handleOnFormVisible = () => {
-    return setVisible(true);
+  useEffect(() => {
+    onBookListChange(books)
+  }, [books]);
+
+  const handleOnFormOpen = () => {
+    return setIsFormVisible(true);
   };
 
-  const handleOnFormUnVisible = () => {
-    setVisible(false);
+  const handleOnFormClose = () => {
+    setIsFormVisible(false);
     setUpdateBook(null);
     setUpdateIndex(null);
   };
 
   const handleOnBookDelete = (index: number) => {
-    const allBook: IBook[] = bookList.slice();
-    allBook.splice(index, 1);
-    setBookList(allBook);
+    const allBooks: IBook[] = books.slice();
+    allBooks.splice(index, 1);
+    setBooks(allBooks);
+    addToast("Book Deleted", { appearance: 'success', autoDismiss: true });
   };
 
   const handleOnBookCreate = (newBook: IBook) => {
-    const index = bookList.length;
-    const allBook: IBook[] = bookList.slice();
-    allBook.splice(index, 1, newBook);
-    setBookList(allBook);
+    const index = books.length;
+    const allBooks: IBook[] = books.slice();
+    allBooks.push(newBook);
+    setBooks(allBooks);
+    addToast("Book Created", { appearance: 'success', autoDismiss: true });
   };
 
   const handleOnBookUpdate = (newBook: IBook) => {
     if (!updateIndex) {
       return;
     }
-    const allBook: IBook[] = bookList.slice();
-    allBook.splice(updateIndex - 1, 1, newBook);
-    setBookList(allBook);
+    const allBooks: IBook[] = books.slice();
+    allBooks.splice(updateIndex - 1, 1, newBook);
+    setBooks(allBooks);
     setUpdateBook(null);
     setUpdateIndex(null);
+    addToast("Book Updated", { appearance: 'success', autoDismiss: true });
   };
 
   const handleOnBookUpdateSet = (index: number) => {
     setUpdateIndex(index + 1);
-    setUpdateBook(bookList[index]);
-    setVisible(true);
+    setUpdateBook(books[index]);
+    setIsFormVisible(true);
   };
 
   return (
-    <Row className="book-section mx-4 mx-sm-5">
+    <Row className="book-section mx-3 mx-md-4 mx-lg-5">
       <Col xs={12} className="p-0">
         <BookTitle />
       </Col>
       <Col xs={12} className="p-0">
         <BookList
-          bookList={bookList}
+          bookList={books}
           onBookDelete={handleOnBookDelete}
           onBookUpdateSet={handleOnBookUpdateSet}
         />
       </Col>
       <Col xs={12} className="p-0">
-        <AddBook formVisible={handleOnFormVisible} />
+        <AddBook formOpen={handleOnFormOpen} />
       </Col>
-      <Col xs={12} sm={9} className="p-0">
-        {visible ? (
+      <Col xs={12} sm={11} md={10} lg={9} className="p-0">
+        {isFormVisible &&
           <BookForm
-            formUnVisible={handleOnFormUnVisible}
+            formClose={handleOnFormClose}
             onBookCreate={handleOnBookCreate}
-            authorList={props.authorList}
+            authorList={authors}
             updateBook={updateBook}
-            onBookUpdate={handleOnBookUpdate}
-          />
-        ) : null}
+            onBookUpdate={handleOnBookUpdate} />}
       </Col>
     </Row>
   );

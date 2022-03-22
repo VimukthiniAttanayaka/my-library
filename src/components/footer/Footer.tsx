@@ -9,9 +9,9 @@ import { Mail, Phone } from "react-feather";
 const Footer: React.FC = () => {
 	return (
 		<Row className="footer pb-3">
-			<Col xs={{span:12, order:2}} md={{span:6, order:1}} className="px-4 py-2 pe-5">
+			<Col xs={{ span: 12, order: 2 }} md={{ span: 6, order: 1 }} className="px-4 py-2 pe-5">
 				<Row className="py-2">
-					We are Mdmylibrary, if you have a problam or future details , contact us
+					We are Mdmylibrary, if you have a problem or future details , contact us
 				</Row>
 				<Row>
 					<Col xs={11} sm={9}>
@@ -35,8 +35,8 @@ const Footer: React.FC = () => {
 					</Col>
 				</Row>
 			</Col>
-			<Col xs={{span:12, order:1}} md={{span:6, order:2}} className="px-4 py-3 mt-3">
-				<Row>
+			<Col xs={{ span: 12, order: 1 }} md={{ span: 6, order: 2 }} className="px-4 py-3 mt-3">
+				<Row className="phone">
 					<Col xs={1}>
 						<Phone />
 					</Col>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
 						<p>0727649756</p>
 					</Col>
 				</Row>
-				<Row>
+				<Row className="email">
 					<Col xs={1}>
 						<Mail />
 					</Col>
@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
 					<Col xs={12}>
 						<p>Follow us on :-</p>
 					</Col>
-					<Col xs={12} className="ms-5">
+					<Col xs={12} className="ms-5 social">
 						<Image src={fb}></Image>
 						<Image src={whatsapp}></Image>
 						<Image src={twitter}></Image>
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
 					</Col>
 				</Row>
 			</Col>
-			<Col xs={{span:12, order:3}}>
+			<Col xs={{ span: 12, order: 3 }}>
 				<Row className="mt-3 px-5 copyright">
 					© 2020 Copyright: MDmylibrary.com
 				</Row>
