@@ -128,6 +128,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
               Title of Book
             </Form.Label>
             <Form.Control
+              size="sm"
               required
               type="text"
               placeholder=""

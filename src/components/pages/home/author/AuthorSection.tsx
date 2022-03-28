@@ -8,6 +8,7 @@ import AuthorTitle from "./AuthorTitle";
 import { useToasts } from 'react-toast-notifications';
 
 type AuthorSectionProps = {
+  authors: IAuthor[];
   books: IBook[];
   onAuthorListChange: (newAuthors: IAuthor[]) => void;
 };
@@ -15,16 +16,11 @@ type AuthorSectionProps = {
 const AuthorSection: React.FC<AuthorSectionProps> = (props) => {
 
   const { addToast } = useToasts()
-  const { books, onAuthorListChange } = props;
+  const { books, authors, onAuthorListChange } = props;
 
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [authors, setAuthors] = useState<IAuthor[]>([]);
   const [updateIndex, setUpdateIndex] = useState<number | null>(null);
   const [updateAuthor, setUpdateAuthor] = useState<IAuthor | null>(null);
-
-  useEffect(() => {
-    onAuthorListChange(authors)
-  }, [authors]);
 
   const handleOnFormOpen = () => {
     return setIsFormVisible(true);
@@ -49,7 +45,7 @@ const AuthorSection: React.FC<AuthorSectionProps> = (props) => {
     if (bookauthorinclude.length === 0) {
       const allAuthors: IAuthor[] = authors.slice();
       allAuthors.splice(index, 1);
-      setAuthors(allAuthors);
+      onAuthorListChange(allAuthors);
       addToast("Author Deleted", { appearance: 'success', autoDismiss: true });
     } else {
       addToast("Author Can not Deleted, First you need to remove '" + bookauthorinclude.toString() + "' book", { appearance: 'error', autoDismiss: false });
@@ -58,8 +54,8 @@ const AuthorSection: React.FC<AuthorSectionProps> = (props) => {
 
   const handleOnAuthorCreate = (newAuthor: IAuthor) => {
     const allAuthors: IAuthor[] = authors.slice();
-    allAuthors.push(newAuthor)
-    setAuthors(allAuthors);
+    allAuthors.push(newAuthor);
+    onAuthorListChange(allAuthors);
     addToast("Author Created", { appearance: 'success', autoDismiss: true });
   };
 
@@ -69,7 +65,7 @@ const AuthorSection: React.FC<AuthorSectionProps> = (props) => {
     }
     const allAuthors: IAuthor[] = authors.slice();
     allAuthors.splice(updateIndex - 1, 1, newAuthor);
-    setAuthors(allAuthors);
+    onAuthorListChange(allAuthors);
     setUpdateAuthor(null);
     setUpdateIndex(null);
     addToast("Author Updated", { appearance: 'success', autoDismiss: true });

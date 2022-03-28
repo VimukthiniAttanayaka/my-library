@@ -108,6 +108,9 @@ $submit-background:#01589d;
 .form-control {
   border-radius: 0;
   border: 2px solid $border-normal;
+  min-height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem
 }
 .author-valid {
   display: none;
@@ -122,10 +125,8 @@ $submit-background:#01589d;
 .select-invalid > div{
   border: 2px solid #dc3545 !important;
   border-radius: 0 !important;
-  border-radius: 3px;
 }
 .select-invalid1 > div{
   border: 2px solid #198754 !important;
   border-radius: 0 !important;
-  border-radius: 3px;
 }

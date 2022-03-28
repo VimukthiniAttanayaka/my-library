@@ -8,6 +8,7 @@ import BookTitle from "./BookTitle";
 import { useToasts } from 'react-toast-notifications';
 
 type BookSectionProps = {
+  books: IBook[];
   authors: IAuthor[];
   onBookListChange: (newBooks: IBook[]) => void;
 };
@@ -15,10 +16,9 @@ type BookSectionProps = {
 const BookSection: React.FC<BookSectionProps> = (props) => {
 
   const { addToast } = useToasts();
-  const { authors, onBookListChange } = props;
+  const { authors, books, onBookListChange } = props;
 
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [books, setBooks] = useState<IBook[]>([]);
   const [updateIndex, setUpdateIndex] = useState<number | null>(null);
   const [updateBook, setUpdateBook] = useState<IBook | null>(null);
 
@@ -39,7 +39,7 @@ const BookSection: React.FC<BookSectionProps> = (props) => {
   const handleOnBookDelete = (index: number) => {
     const allBooks: IBook[] = books.slice();
     allBooks.splice(index, 1);
-    setBooks(allBooks);
+    onBookListChange(allBooks);
     addToast("Book Deleted", { appearance: 'success', autoDismiss: true });
   };
 
@@ -47,7 +47,7 @@ const BookSection: React.FC<BookSectionProps> = (props) => {
     const index = books.length;
     const allBooks: IBook[] = books.slice();
     allBooks.push(newBook);
-    setBooks(allBooks);
+    onBookListChange(allBooks);
     addToast("Book Created", { appearance: 'success', autoDismiss: true });
   };
 
@@ -57,7 +57,7 @@ const BookSection: React.FC<BookSectionProps> = (props) => {
     }
     const allBooks: IBook[] = books.slice();
     allBooks.splice(updateIndex - 1, 1, newBook);
-    setBooks(allBooks);
+    onBookListChange(allBooks);
     setUpdateBook(null);
     setUpdateIndex(null);
     addToast("Book Updated", { appearance: 'success', autoDismiss: true });

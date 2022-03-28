@@ -64,6 +64,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
               Name of Author
             </Form.Label>
             <Form.Control
+              size="sm"
               required
               type="text"
               placeholder=""

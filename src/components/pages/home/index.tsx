@@ -11,12 +11,12 @@ const Home: React.FC = () => {
   const [authors, setAuthors] = useState<IAuthor[]>([]);
   const [books, setBooks] = useState<IBook[]>([]);
 
-  const onAuthorListChange = (newAuthors: IAuthor[]) => {
-    setAuthors(newAuthors);
+  const handleAuthorListChange = (updatedAuthors: IAuthor[]) => {
+    setAuthors(updatedAuthors);
   };
 
-  const onBookListChange = (newBooks: IBook[]) => {
-    setBooks(newBooks);
+  const handleBookListChange = (updatedBooks: IBook[]) => {
+    setBooks(updatedBooks);
   };
 
   return (
@@ -31,7 +31,8 @@ const Home: React.FC = () => {
           className="px-sm-0 mx-0 px-3"
         >
           <AuthorSection books={books}
-            onAuthorListChange={onAuthorListChange}
+            authors={authors}
+            onAuthorListChange={handleAuthorListChange}
           />
         </Col>
         <Col
@@ -40,7 +41,8 @@ const Home: React.FC = () => {
           className="px-sm-0 mx-0 px-3"
         >
           <BookSection authors={authors}
-            onBookListChange={onBookListChange} />
+            books={books}
+            onBookListChange={handleBookListChange} />
         </Col>
       </Row>
     </Container>
