@@ -3,9 +3,11 @@ import { Row, Col } from "react-bootstrap";
 import { IAuthor } from "../../../types/LibraryTypes";
 import { Trash2, Edit } from "react-feather";
 import Swal from "sweetalert2";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeAuthors, updateAuthorId } from '../../../../redux/authorReducer';
 import { useToasts } from 'react-toast-notifications';
+import { selectBook } from '../../../../redux/configureStore';
+import { selectAuthor } from '../../../../redux/configureStore';
 
 type AuthorProps = {
   author: IAuthor;
@@ -13,9 +15,11 @@ type AuthorProps = {
 };
 
 const Author: React.FC<AuthorProps> = (props) => {
-  
+
   const { addToast } = useToasts();
   const dispatch = useDispatch();
+  const bookList = useSelector(selectBook);
+  const authorList = useSelector(selectAuthor);
 
   const { author, index } = props;
 
@@ -30,8 +34,22 @@ const Author: React.FC<AuthorProps> = (props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        dispatch(removeAuthors(index));
-        addToast("Author Created", { appearance: 'success', autoDismiss: true });
+        const bookauthorinclude: string[] = [];
+
+        for (let i = 0; i < bookList.length; i++) {
+          if (bookList[i].author === authorList[index].name) {
+            bookauthorinclude.push(bookList[i].name)
+          }
+        }
+
+        if (bookauthorinclude.length === 0) {
+          const allAuthors: IAuthor[] = authorList.slice();
+          allAuthors.splice(index, 1);
+          dispatch(removeAuthors(index));
+          addToast("Author Deleted", { appearance: 'success', autoDismiss: true });
+        } else {
+          addToast("Author Can not Deleted, First you need to remove '" + bookauthorinclude.toString() + "' book", { appearance: 'error', autoDismiss: false });
+        }
       }
     });
   };
