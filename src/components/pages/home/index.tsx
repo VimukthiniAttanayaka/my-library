@@ -1,23 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import AuthorSection from "./author/AuthorSection";
 import BookSection from "./book/BookSection";
 import Welcome from "./welcome/Welcome";
-import { IAuthor } from "../../types/LibraryTypes";
-import { IBook } from "../../types/LibraryTypes";
 
 const Home: React.FC = () => {
-
-  const [authors, setAuthors] = useState<IAuthor[]>([]);
-  const [books, setBooks] = useState<IBook[]>([]);
-
-  const handleAuthorListChange = (updatedAuthors: IAuthor[]) => {
-    setAuthors(updatedAuthors);
-  };
-
-  const handleBookListChange = (updatedBooks: IBook[]) => {
-    setBooks(updatedBooks);
-  };
 
   return (
     <Container fluid={true}>
@@ -30,19 +17,14 @@ const Home: React.FC = () => {
           md={{ span: 6, order: 2 }}
           className="px-sm-0 mx-0 px-3"
         >
-          <AuthorSection books={books}
-            authors={authors}
-            onAuthorListChange={handleAuthorListChange}
-          />
+          <AuthorSection />
         </Col>
         <Col
           xs={{ span: 12, order: 2 }}
           md={{ span: 6, order: 1 }}
           className="px-sm-0 mx-0 px-3"
         >
-          <BookSection authors={authors}
-            books={books}
-            onBookListChange={handleBookListChange} />
+          <BookSection />
         </Col>
       </Row>
     </Container>

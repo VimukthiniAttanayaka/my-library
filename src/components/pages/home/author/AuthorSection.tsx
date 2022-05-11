@@ -6,17 +6,11 @@ import AuthorForm from "./AuthorForm";
 import AuthorList from "./AuthorList";
 import AuthorTitle from "./AuthorTitle";
 import { useSelector } from 'react-redux';
-import { selectFormVisible } from '../../../../redux/configureStore';
+import { selectAuthorFormVisible } from '../../../../redux/configureStore';
 
-type AuthorSectionProps = {
-  authors: IAuthor[];
-  books: IBook[];
-  onAuthorListChange: (newAuthors: IAuthor[]) => void;
-};
+const AuthorSection: React.FC = () => {
 
-const AuthorSection: React.FC<AuthorSectionProps> = (props) => {
-
-  const isFormVisible = useSelector(selectFormVisible);
+  const isFormVisible = useSelector(selectAuthorFormVisible);
 
   return (
     <Row className="author-section mx-3 mx-md-4 mx-lg-5">

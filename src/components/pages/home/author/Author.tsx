@@ -13,6 +13,7 @@ type AuthorProps = {
 };
 
 const Author: React.FC<AuthorProps> = (props) => {
+  
   const { addToast } = useToasts();
   const dispatch = useDispatch();
 
