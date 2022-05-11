@@ -5,17 +5,18 @@ import NumberFormat from "react-number-format";
 import Select from "react-select";
 import { AuthorDropDown, IAuthor, IBook } from "../../../types/LibraryTypes";
 import customStyles from '../../../../constants/values';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBooks, updateBook, updateBookId, formVisible } from '../../../../redux/bookReducer';
+import { useToasts } from 'react-toast-notifications';
+import { selectAuthor, selectBook, selectBookUpdateId } from '../../../../redux/configureStore';
 
-type BookFormProps = {
-  formClose: () => void;
-  onBookCreate: (newBook: IBook) => void;
-  authorList: IAuthor[];
-  updateBook: IBook | null;
-  onBookUpdate: (newBook: IBook) => void;
-};
+const BookForm: React.FC = () => {
 
-const BookForm: React.FC<BookFormProps> = (props) => {
-  const { formClose, updateBook, onBookCreate, onBookUpdate, authorList } = props;
+  const { addToast } = useToasts()
+  const dispatch = useDispatch();
+  const updateId = useSelector(selectBookUpdateId);
+  const authorList = useSelector(selectAuthor);
+  const bookList = useSelector(selectBook);
 
   const [bookName, setBookName] = useState<string>("");
   const [bookPrice, setBookPrice] = useState<string>("");
@@ -46,17 +47,18 @@ const BookForm: React.FC<BookFormProps> = (props) => {
   };
 
   useEffect(() => {
-    if (!updateBook) {
+    if (updateId === -1) {
       return;
     }
     const updateBookAuthor: AuthorDropDown = {
-      value: updateBook.author,
-      label: updateBook.author,
+      value: bookList[updateId].author,
+      label: bookList[updateId].author,
     };
-    setBookName(updateBook.name);
-    setBookPrice(updateBook.price);
+    setBookName(bookList[updateId].name);
+    setBookPrice(bookList[updateId].price);
     setBookAuthor(updateBookAuthor);
-  }, [updateBook]);
+  }, [updateId]);
+
   const handleSubmit = (event: any) => {
     setAuthorMsg("author-invalid");
     const form = event.currentTarget;
@@ -71,13 +73,15 @@ const BookForm: React.FC<BookFormProps> = (props) => {
     setValidated(true);
     if (!bookName || !bookPrice || !bookAuthor) {
       return;
-    } else if (updateBook) {
+    } else if (updateId !== -1) {
       const newBook: IBook = {
         name: bookName,
         price: bookPrice,
         author: bookAuthor.value,
       };
-      onBookUpdate(newBook);
+      dispatch(updateBook(newBook));
+      addToast("Book Updated", { appearance: 'success', autoDismiss: true });
+      dispatch(updateBookId(-1))
       setBookName("");
       setBookPrice("");
       setBookAuthor(null);
@@ -90,7 +94,8 @@ const BookForm: React.FC<BookFormProps> = (props) => {
         price: bookPrice,
         author: bookAuthor.value,
       };
-      onBookCreate(newBook);
+      dispatch(addBooks(newBook));
+      addToast("Book Created", { appearance: 'success', autoDismiss: true });
       setBookName("");
       setBookPrice("");
       setBookAuthor(null);
@@ -116,10 +121,10 @@ const BookForm: React.FC<BookFormProps> = (props) => {
   return (
     <Row className="book-form-area mb-5">
       <Col xs={11} className="p-0 mb-2 ps-1">
-        <h4>{updateBook ? "Update " : "Create "} Book</h4>
+        <h4>{updateId !== -1 ? "Update " : "Create "} Book</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={formClose} />
+        <XCircle className="form-close mt-1" onClick={() => dispatch(formVisible(false))} />
       </Col>
       <Col xs={12} className="p-0 book-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -128,6 +133,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
               Title of Book
             </Form.Label>
             <Form.Control
+              size="sm"
               required
               type="text"
               placeholder=""
@@ -176,7 +182,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
             )}
           </Form.Group>
           <Button type="submit" className="book-submit">
-            {updateBook ? "Update" : "Create"}
+            {updateId !== -1 ? "Update" : "Create"}
           </Button>
         </Form>
       </Col>

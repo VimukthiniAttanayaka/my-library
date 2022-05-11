@@ -2,17 +2,14 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { IAuthor } from "../../../types/LibraryTypes";
 import Author from "./Author";
+import { selectAuthor } from '../../../../redux/configureStore';
+import { useSelector } from 'react-redux';
 
-type AuthorListProps = {
-  authorList: IAuthor[];
-  onAuthorDelete: (index: number) => void;
-  onAuthorUpdateSet: (index: number) => void;
-};
+const AuthorList: React.FC = () => {
 
-const AuthorList: React.FC<AuthorListProps> = (props) => {
-  const { authorList, onAuthorDelete, onAuthorUpdateSet } = props;
+  const authorList = useSelector(selectAuthor);
 
-  if (props.authorList.length === 0) {
+  if (authorList.length === 0) {
     return (
       <p className="empty-author mt-2">
         <i>No Author Listed Here</i>
@@ -28,8 +25,6 @@ const AuthorList: React.FC<AuthorListProps> = (props) => {
             author={author}
             index={index}
             key={index}
-            deleteAuthor={onAuthorDelete}
-            onAuthorUpdateSet={onAuthorUpdateSet}
           />
         ))}
       </ul>

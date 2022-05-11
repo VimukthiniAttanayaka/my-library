@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
-import { IAuthor } from "../../../types/LibraryTypes";
+import { useDispatch, useSelector } from 'react-redux';
+import { addAuthors, updateAuthor, updateAuthorId, formVisible } from '../../../../redux/authorReducer';
+import { useToasts } from 'react-toast-notifications';
+import { selectAuthor, selectAuthorUpdateId } from '../../../../redux/configureStore';
 
-type AuthorFormProps = {
-  onFormClose: () => void;
-  onAuthorCreate: (newAuthor: IAuthor) => void;
-  updateAuthor: IAuthor | null;
-  onAuthorUpdate: (newAuthor: IAuthor) => void;
-};
+const AuthorForm: React.FC = () => {
 
-const AuthorForm: React.FC<AuthorFormProps> = (props) => {
-  const { onFormClose, updateAuthor, onAuthorCreate, onAuthorUpdate } = props;
+  const { addToast } = useToasts()
+  const dispatch = useDispatch();
+  const updateId = useSelector(selectAuthorUpdateId);
+  const authorList = useSelector(selectAuthor);
 
   const [validated, setValidated] = useState(false);
   const [authorName, setAuthorName] = useState<string>("");
@@ -21,11 +21,11 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
   };
 
   useEffect(() => {
-    if (!updateAuthor) {
+    if (updateId === -1) {
       return;
     }
-    setAuthorName(updateAuthor.name);
-  }, [updateAuthor]);
+    setAuthorName(authorList[updateId].name);
+  }, [updateId]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -37,14 +37,15 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
     setValidated(true);
     if (!authorName) {
       return;
-    } else if (updateAuthor) {
-      const newAuthor: IAuthor = { name: authorName };
-      onAuthorUpdate(newAuthor);
+    } else if (updateId !== -1) {
+      dispatch(updateAuthor(authorName));
       setAuthorName("");
+      addToast("Author Updated", { appearance: 'success', autoDismiss: true });
+      dispatch(updateAuthorId(-1))
     } else {
-      const newAuthor: IAuthor = { name: authorName };
-      onAuthorCreate(newAuthor);
+      dispatch(addAuthors(authorName));
       setAuthorName("");
+      addToast("Author Created", { appearance: 'success', autoDismiss: true });
     }
     setValidated(false);
   };
@@ -52,10 +53,10 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
   return (
     <Row className="author-form-area mb-5">
       <Col xs={11} className="p-0 mb-2 ps-md-1">
-        <h4>{updateAuthor ? "Update " : "Create "} Author</h4>
+        <h4>{updateId !== -1 ? "Update " : "Create "} Author</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={onFormClose} />
+        <XCircle className="form-close mt-1" onClick={() => dispatch(formVisible(false))} />
       </Col>
       <Col xs={12} className="p-0 author-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -64,6 +65,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
               Name of Author
             </Form.Label>
             <Form.Control
+              size="sm"
               required
               type="text"
               placeholder=""
@@ -77,7 +79,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Button type="submit" className="author-submit">
-            {updateAuthor ? "Update" : "Create"}
+            {updateId !== -1 ? "Update" : "Create"}
           </Button>
         </Form>
       </Col>

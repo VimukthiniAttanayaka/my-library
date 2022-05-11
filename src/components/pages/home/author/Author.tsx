@@ -3,16 +3,25 @@ import { Row, Col } from "react-bootstrap";
 import { IAuthor } from "../../../types/LibraryTypes";
 import { Trash2, Edit } from "react-feather";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from 'react-redux';
+import { removeAuthors, updateAuthorId } from '../../../../redux/authorReducer';
+import { useToasts } from 'react-toast-notifications';
+import { selectBook } from '../../../../redux/configureStore';
+import { selectAuthor } from '../../../../redux/configureStore';
 
 type AuthorProps = {
   author: IAuthor;
   index: number;
-  deleteAuthor: (index: number) => void;
-  onAuthorUpdateSet: (index: number) => void;
 };
 
 const Author: React.FC<AuthorProps> = (props) => {
-  const { author, index, deleteAuthor, onAuthorUpdateSet } = props;
+
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const bookList = useSelector(selectBook);
+  const authorList = useSelector(selectAuthor);
+
+  const { author, index } = props;
 
   const handleOnClick = () => {
     Swal.fire({
@@ -25,7 +34,22 @@ const Author: React.FC<AuthorProps> = (props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        deleteAuthor(index);
+        const bookauthorinclude: string[] = [];
+
+        for (let i = 0; i < bookList.length; i++) {
+          if (bookList[i].author === authorList[index].name) {
+            bookauthorinclude.push(bookList[i].name)
+          }
+        }
+
+        if (bookauthorinclude.length === 0) {
+          const allAuthors: IAuthor[] = authorList.slice();
+          allAuthors.splice(index, 1);
+          dispatch(removeAuthors(index));
+          addToast("Author Deleted", { appearance: 'success', autoDismiss: true });
+        } else {
+          addToast("Author Can not Deleted, First you need to remove '" + bookauthorinclude.toString() + "' book", { appearance: 'error', autoDismiss: false });
+        }
       }
     });
   };
@@ -39,7 +63,7 @@ const Author: React.FC<AuthorProps> = (props) => {
       </Col>
       <Col xs={4}>
         <Trash2 className="delete text-danger ms-2 ms-sm-3 mt-1" onClick={handleOnClick} />
-        <Edit className="edit text-warning ms-2 ms-sm-3 mt-1" onClick={() => onAuthorUpdateSet(index)} />
+        <Edit className="edit text-warning ms-2 ms-sm-3 mt-1" onClick={() => dispatch(updateAuthorId(index))} />
       </Col>
     </Row>
   );

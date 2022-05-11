@@ -3,16 +3,21 @@ import { Row, Col } from "react-bootstrap";
 import { IBook } from "../../../types/LibraryTypes";
 import { Trash2, Edit } from "react-feather";
 import Swal from "sweetalert2";
+import { useDispatch } from 'react-redux';
+import { removeBooks, updateBookId } from '../../../../redux/bookReducer';
+import { useToasts } from 'react-toast-notifications';
 
 type BookProps = {
   book: IBook;
   index: number;
-  deleteBook: (index: number) => void;
-  onBookUpdateSet: (index: number) => void;
 };
 
 const Book: React.FC<BookProps> = (props) => {
-  const { book, index, deleteBook, onBookUpdateSet } = props;
+
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+
+  const { book, index } = props;
 
   const handleOnClick = () => {
     Swal.fire({
@@ -25,7 +30,8 @@ const Book: React.FC<BookProps> = (props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        deleteBook(index);
+        dispatch(removeBooks(index));
+        addToast("Book Created", { appearance: 'success', autoDismiss: true });
       }
     });
   };
@@ -39,7 +45,7 @@ const Book: React.FC<BookProps> = (props) => {
       </Col>
       <Col xs={4}>
         <Trash2 className="delete text-danger ms-2 ms-sm-3 mt-1" onClick={handleOnClick} />
-        <Edit className="edit text-warning ms-2 ms-sm-3 mt-1" onClick={() => onBookUpdateSet(index)} />
+        <Edit className="edit text-warning ms-2 ms-sm-3 mt-1" onClick={() => dispatch(updateBookId(index))} />
       </Col>
     </Row>
   );
