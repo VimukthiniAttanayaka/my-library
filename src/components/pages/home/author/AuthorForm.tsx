@@ -6,12 +6,18 @@ import { addAuthors, updateAuthor, updateAuthorId } from '../../../../redux/auth
 import { useToasts } from 'react-toast-notifications';
 import { selectAuthor, selectAuthorUpdateId } from '../../../../redux/configureStore';
 
-const AuthorForm: React.FC = () => {
+type AuthorFormProps = {
+  onFormClose: (state:boolean) => void;
+};
+
+const AuthorForm: React.FC<AuthorFormProps> = (props) => {
 
   const { addToast } = useToasts()
   const dispatch = useDispatch();
   const updateId = useSelector(selectAuthorUpdateId);
   const authorList = useSelector(selectAuthor);
+
+  const {onFormClose} = props; 
 
   const [validated, setValidated] = useState(false);
   const [authorName, setAuthorName] = useState<string>("");
@@ -50,17 +56,13 @@ const AuthorForm: React.FC = () => {
     setValidated(false);
   };
 
-  const formStateSet = () => {
-    localStorage.setItem('authorForm', "false")
-  }
-
   return (
     <Row className="author-form-area mb-5">
       <Col xs={11} className="p-0 mb-2 ps-md-1">
         <h4>{updateId !== -1 ? "Update " : "Create "} Author</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={() => formStateSet()} />
+        <XCircle className="form-close mt-1" onClick={() => onFormClose(false)} />
       </Col>
       <Col xs={12} className="p-0 author-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>

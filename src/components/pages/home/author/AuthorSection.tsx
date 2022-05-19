@@ -1,6 +1,5 @@
-import React,{useEffect, useState} from "react";
+import React,{ useState} from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor, IBook } from "../../../types/LibraryTypes";
 import AddAuthor from "./AddAuthor";
 import AuthorForm from "./AuthorForm";
 import AuthorList from "./AuthorList";
@@ -9,7 +8,7 @@ import AuthorTitle from "./AuthorTitle";
 const AuthorSection: React.FC = () => {
   const[isFormVisible, setIsFormVisible] = useState(false);
 
-  const formVisible = (state:boolean) => {
+  const handleFormVisible = (state:boolean) => {
       setIsFormVisible(state);
   }
 
@@ -22,10 +21,10 @@ const AuthorSection: React.FC = () => {
         <AuthorList/>
       </Col>
       <Col xs={12} className="p-0">
-        <AddAuthor/>
+        <AddAuthor onFormOpen={handleFormVisible}/>
       </Col>
       <Col xs={12} sm={11} md={10} lg={9} className="p-0">
-        {isFormVisible && <AuthorForm />}
+        {isFormVisible && <AuthorForm onFormClose={handleFormVisible}/>}
       </Col>
     </Row>
   );

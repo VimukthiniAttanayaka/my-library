@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Row, Col } from "react-bootstrap";
 import AddBook from "./AddBook";
 import BookForm from "./BookForm";
@@ -7,7 +7,11 @@ import BookTitle from "./BookTitle";
 
 const BookSection: React.FC = () => {
 
-  const bookFormVisible = localStorage.getItem('bookForm');
+  const[isFormVisible, setIsFormVisible] = useState(false);
+
+  const handleFormVisible = (state:boolean) => {
+      setIsFormVisible(state);
+  }
 
   return (
     <Row className="book-section mx-3 mx-md-4 mx-lg-5">
@@ -18,10 +22,10 @@ const BookSection: React.FC = () => {
         <BookList />
       </Col>
       <Col xs={12} className="p-0">
-        <AddBook />
+        <AddBook onFormOpen={handleFormVisible}/>
       </Col>
       <Col xs={12} sm={11} md={10} lg={9} className="p-0">
-        {bookFormVisible ==='true' && <BookForm />}
+        {isFormVisible && <BookForm onFormClose={handleFormVisible}/>}
       </Col>
     </Row>
   );

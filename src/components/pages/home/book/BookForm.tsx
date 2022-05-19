@@ -10,13 +10,18 @@ import { addBooks, updateBook, updateBookId } from '../../../../redux/bookReduce
 import { useToasts } from 'react-toast-notifications';
 import { selectAuthor, selectBook, selectBookUpdateId } from '../../../../redux/configureStore';
 
-const BookForm: React.FC = () => {
+type BookFormProps = {
+  onFormClose: (state:boolean) => void;
+};
+const BookForm: React.FC<BookFormProps> = (props) => {
 
   const { addToast } = useToasts()
   const dispatch = useDispatch();
   const updateId = useSelector(selectBookUpdateId);
   const authorList = useSelector(selectAuthor);
   const bookList = useSelector(selectBook);
+
+  const {onFormClose} = props;
 
   const [bookName, setBookName] = useState<string>("");
   const [bookPrice, setBookPrice] = useState<string>("");
@@ -118,17 +123,13 @@ const BookForm: React.FC = () => {
     }
   };
 
-  const formStateSet = () => {
-    localStorage.setItem('bookForm', "false")
-  }
-
   return (
     <Row className="book-form-area mb-5">
       <Col xs={11} className="p-0 mb-2 ps-1">
         <h4>{updateId !== -1 ? "Update " : "Create "} Book</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={() => formStateSet()} />
+        <XCircle className="form-close mt-1" onClick={() => onFormClose(false)} />
       </Col>
       <Col xs={12} className="p-0 book-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
