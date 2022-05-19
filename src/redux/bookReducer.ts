@@ -1,19 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-interface Book {
-    name: string;
-    price: string;
-    author: string;
-}
-interface IBook {
-    id: number;
-    name: string;
-    price: string;
-    author: string;
-}
+import { IBook, BookArray } from '../components/types/LibraryTypes';
 
 interface booksSliceState {
-    books: IBook[];
+    books: BookArray[];
     updateId: number;
 }
 const initialState: booksSliceState = {
@@ -25,14 +14,12 @@ export const bookSlice = createSlice({
     name: 'book',
     initialState,
     reducers: {
-        addBooks: (state, action: PayloadAction<Book>) => {
+        addBooks: (state, action: PayloadAction<IBook>) => {
             state.books = [
                 ...state.books,
                 {
                     id: state.books.length,
-                    name: action.payload.name,
-                    price: action.payload.price,
-                    author: action.payload.author,
+                    book: action.payload,
                 }
             ]
         },
@@ -42,13 +29,11 @@ export const bookSlice = createSlice({
         updateBookId: (state, action: PayloadAction<number>) => {
             state.updateId = action.payload;
         },
-        updateBook: (state, action: PayloadAction<Book>) => {
+        updateBook: (state, action: PayloadAction<IBook>) => {
             const allBooks = [...state.books];
             allBooks.splice(state.updateId, 1, {
                 id: state.updateId,
-                name: action.payload.name,
-                    price: action.payload.price,
-                    author: action.payload.author,
+                book: action.payload,
             });
 
             state.books = allBooks;

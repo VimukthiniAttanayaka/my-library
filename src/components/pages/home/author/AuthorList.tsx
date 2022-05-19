@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor } from "../../../types/LibraryTypes";
+import { IAuthorArray, IAuthor } from "../../../types/LibraryTypes";
 import Author from "./Author";
 import { selectAuthor } from '../../../../redux/configureStore';
 import { useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ const AuthorList: React.FC = () => {
   const renderAuthor = () => {
     return (
       <ul className="p-3 m-0">
-        {authorList.map((author: IAuthor, index: number) => (
+        {authorList.map((author: IAuthorArray, index: number) => (
           <Author
             author={author}
             index={index}

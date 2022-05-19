@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IAuthor } from "../../../types/LibraryTypes";
+import { IAuthorArray, IAuthor } from "../../../types/LibraryTypes";
 import { Trash2, Edit } from "react-feather";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import { selectBook } from '../../../../redux/configureStore';
 import { selectAuthor } from '../../../../redux/configureStore';
 
 type AuthorProps = {
-  author: IAuthor;
+  author: IAuthorArray;
   index: number;
 };
 
@@ -37,13 +37,13 @@ const Author: React.FC<AuthorProps> = (props) => {
         const bookauthorinclude: string[] = [];
 
         for (let i = 0; i < bookList.length; i++) {
-          if (bookList[i].author === authorList[index].name) {
-            bookauthorinclude.push(bookList[i].name)
+          if (bookList[i].book.author === authorList[index].author.name) {
+            bookauthorinclude.push(bookList[i].book.name)
           }
         }
 
         if (bookauthorinclude.length === 0) {
-          const allAuthors: IAuthor[] = authorList.slice();
+          const allAuthors: IAuthorArray[] = authorList.slice();
           allAuthors.splice(index, 1);
           dispatch(removeAuthors(index));
           addToast("Author Deleted", { appearance: 'success', autoDismiss: true });
@@ -58,7 +58,7 @@ const Author: React.FC<AuthorProps> = (props) => {
     <Row className="author py-1">
       <Col xs={8} className="p-0">
         <p>
-          {index + 1}. {author.name}
+          {index + 1}. {author.author.name}
         </p>
       </Col>
       <Col xs={4}>

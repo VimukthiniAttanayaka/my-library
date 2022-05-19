@@ -3,7 +3,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
 import NumberFormat from "react-number-format";
 import Select from "react-select";
-import { AuthorDropDown, IAuthor, IBook } from "../../../types/LibraryTypes";
+import { IAuthorArray, AuthorDropDown, IAuthor, IBook } from "../../../types/LibraryTypes";
 import customStyles from '../../../../constants/values';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBooks, updateBook, updateBookId } from '../../../../redux/bookReducer';
@@ -11,7 +11,7 @@ import { useToasts } from 'react-toast-notifications';
 import { selectAuthor, selectBook, selectBookUpdateId } from '../../../../redux/configureStore';
 
 type BookFormProps = {
-  onFormClose: (state:boolean) => void;
+  onFormClose: (state: boolean) => void;
 };
 const BookForm: React.FC<BookFormProps> = (props) => {
 
@@ -21,7 +21,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
   const authorList = useSelector(selectAuthor);
   const bookList = useSelector(selectBook);
 
-  const {onFormClose} = props;
+  const { onFormClose } = props;
 
   const [bookName, setBookName] = useState<string>("");
   const [bookPrice, setBookPrice] = useState<string>("");
@@ -31,8 +31,8 @@ const BookForm: React.FC<BookFormProps> = (props) => {
   const [bookAuthorValid, setBookAuthorValid] = useState<string>("");
   const [authorMsg, setAuthorMsg] = useState<string>("author-valid");
 
-  const authors = authorList.map((author: IAuthor) => {
-    return { value: author.name, label: author.name };
+  const authors = authorList.map((author: IAuthorArray) => {
+    return { value: author.author.name, label: author.author.name };
   });
 
   const handleOnBookNameChanged = (name: string) => {
@@ -56,11 +56,11 @@ const BookForm: React.FC<BookFormProps> = (props) => {
       return;
     }
     const updateBookAuthor: AuthorDropDown = {
-      value: bookList[updateId].author,
-      label: bookList[updateId].author,
+      value: bookList[updateId].book.author,
+      label: bookList[updateId].book.author,
     };
-    setBookName(bookList[updateId].name);
-    setBookPrice(bookList[updateId].price);
+    setBookName(bookList[updateId].book.name);
+    setBookPrice(bookList[updateId].book.price);
     setBookAuthor(updateBookAuthor);
   }, [updateId]);
 

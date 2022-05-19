@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addAuthors, updateAuthor, updateAuthorId } from '../../../../redux/authorReducer';
 import { useToasts } from 'react-toast-notifications';
 import { selectAuthor, selectAuthorUpdateId } from '../../../../redux/configureStore';
+import { IAuthor } from "../../../types/LibraryTypes";
 
 type AuthorFormProps = {
-  onFormClose: (state:boolean) => void;
+  onFormClose: (state: boolean) => void;
 };
 
 const AuthorForm: React.FC<AuthorFormProps> = (props) => {
@@ -17,7 +18,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
   const updateId = useSelector(selectAuthorUpdateId);
   const authorList = useSelector(selectAuthor);
 
-  const {onFormClose} = props; 
+  const { onFormClose } = props;
 
   const [validated, setValidated] = useState(false);
   const [authorName, setAuthorName] = useState<string>("");
@@ -30,7 +31,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
     if (updateId === -1) {
       return;
     }
-    setAuthorName(authorList[updateId].name);
+    setAuthorName(authorList[updateId].author.name);
   }, [updateId]);
 
   const handleSubmit = (event: any) => {
@@ -44,12 +45,18 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
     if (!authorName) {
       return;
     } else if (updateId !== -1) {
-      dispatch(updateAuthor(authorName));
+      const newAuthor: IAuthor = {
+        name: authorName,
+      };
+      dispatch(updateAuthor(newAuthor));
       setAuthorName("");
       addToast("Author Updated", { appearance: 'success', autoDismiss: true });
       dispatch(updateAuthorId(-1))
     } else {
-      dispatch(addAuthors(authorName));
+      const newAuthor: IAuthor = {
+        name: authorName,
+      };
+      dispatch(addAuthors(newAuthor));
       setAuthorName("");
       addToast("Author Created", { appearance: 'success', autoDismiss: true });
     }

@@ -3,12 +3,12 @@ import { Col, Row } from "react-bootstrap";
 import { Plus } from "react-feather";
 
 type AddAuthorProps = {
-  onFormOpen: (state:boolean) => void;
+  onFormOpen: (state: boolean) => void;
 };
 
 const AddAuthor: React.FC<AddAuthorProps> = (props) => {
 
-  const {onFormOpen} = props;
+  const { onFormOpen } = props;
 
   return (
     <Row>

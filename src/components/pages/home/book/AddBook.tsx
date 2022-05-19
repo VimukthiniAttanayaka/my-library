@@ -3,11 +3,11 @@ import { Col, Row } from "react-bootstrap";
 import { Plus } from "react-feather";
 
 type AddBookProps = {
-  onFormOpen: (state:boolean) => void;
+  onFormOpen: (state: boolean) => void;
 };
 const AddBook: React.FC<AddBookProps> = (props) => {
 
-  const {onFormOpen} = props;
+  const { onFormOpen } = props;
 
   return (
     <Row>

@@ -1,12 +1,12 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IBook } from "../../../types/LibraryTypes";
+import { BookArray } from "../../../types/LibraryTypes";
 import Book from "./Book";
 import { selectBook } from '../../../../redux/configureStore';
 import { useSelector } from 'react-redux';
 
 const BookList: React.FC = () => {
-  
+
   const bookList = useSelector(selectBook);
 
   if (bookList.length === 0) {
@@ -20,7 +20,7 @@ const BookList: React.FC = () => {
   const renderBook = () => {
     return (
       <ul className="p-3 m-0">
-        {bookList.map((book: IBook, index: number) => (
+        {bookList.map((book: BookArray, index: number) => (
           <Book
             book={book}
             index={index}

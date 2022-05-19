@@ -1,12 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-interface IAuthor {
-    id: number;
-    name: string;
-}
+import { IAuthor, IAuthorArray } from '../components/types/LibraryTypes';
 
 interface authorsSliceState {
-    authors: IAuthor[];
+    authors: IAuthorArray[];
     updateId: number;
 }
 const initialState: authorsSliceState = {
@@ -18,12 +14,12 @@ export const authorSlice = createSlice({
     name: 'author',
     initialState,
     reducers: {
-        addAuthors: (state, action: PayloadAction<string>) => {
+        addAuthors: (state, action: PayloadAction<IAuthor>) => {
             state.authors = [
                 ...state.authors,
                 {
                     id: state.authors.length,
-                    name: action.payload,
+                    author: action.payload,
                 }
             ]
         },
@@ -33,11 +29,11 @@ export const authorSlice = createSlice({
         updateAuthorId: (state, action: PayloadAction<number>) => {
             state.updateId = action.payload;
         },
-        updateAuthor: (state, action: PayloadAction<string>) => {
+        updateAuthor: (state, action: PayloadAction<IAuthor>) => {
             const allAuthors = [...state.authors];
             allAuthors.splice(state.updateId, 1, {
                 id: state.updateId,
-                name: action.payload,
+                author: action.payload,
             });
 
             state.authors = allAuthors;

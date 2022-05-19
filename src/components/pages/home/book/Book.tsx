@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { IBook } from "../../../types/LibraryTypes";
+import { BookArray } from "../../../types/LibraryTypes";
 import { Trash2, Edit } from "react-feather";
 import Swal from "sweetalert2";
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import { removeBooks, updateBookId } from '../../../../redux/bookReducer';
 import { useToasts } from 'react-toast-notifications';
 
 type BookProps = {
-  book: IBook;
+  book: BookArray;
   index: number;
 };
 
@@ -40,7 +40,7 @@ const Book: React.FC<BookProps> = (props) => {
     <Row className="book py-1">
       <Col xs={8} className="p-0">
         <p>
-          {index + 1}. {book.name}
+          {index + 1}. {book.book.name}
         </p>
       </Col>
       <Col xs={4}>
