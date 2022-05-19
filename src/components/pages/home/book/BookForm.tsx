@@ -6,7 +6,7 @@ import Select from "react-select";
 import { AuthorDropDown, IAuthor, IBook } from "../../../types/LibraryTypes";
 import customStyles from '../../../../constants/values';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBooks, updateBook, updateBookId, formVisible } from '../../../../redux/bookReducer';
+import { addBooks, updateBook, updateBookId } from '../../../../redux/bookReducer';
 import { useToasts } from 'react-toast-notifications';
 import { selectAuthor, selectBook, selectBookUpdateId } from '../../../../redux/configureStore';
 
@@ -118,13 +118,17 @@ const BookForm: React.FC = () => {
     }
   };
 
+  const formStateSet = () => {
+    localStorage.setItem('bookForm', "false")
+  }
+
   return (
     <Row className="book-form-area mb-5">
       <Col xs={11} className="p-0 mb-2 ps-1">
         <h4>{updateId !== -1 ? "Update " : "Create "} Book</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={() => dispatch(formVisible(false))} />
+        <XCircle className="form-close mt-1" onClick={() => formStateSet()} />
       </Col>
       <Col xs={12} className="p-0 book-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>

@@ -15,12 +15,10 @@ interface IBook {
 interface booksSliceState {
     books: IBook[];
     updateId: number;
-    isFormVisible: boolean;
 }
 const initialState: booksSliceState = {
     books: [],
     updateId: -1,
-    isFormVisible: false,
 }
 
 export const bookSlice = createSlice({
@@ -55,13 +53,10 @@ export const bookSlice = createSlice({
 
             state.books = allBooks;
         },
-        formVisible: (state, action: PayloadAction<boolean>) => {
-            state.isFormVisible = action.payload;
-        },
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { addBooks, removeBooks, updateBookId, updateBook, formVisible } = bookSlice.actions
+export const { addBooks, removeBooks, updateBookId, updateBook } = bookSlice.actions
 
 export default bookSlice.reducer

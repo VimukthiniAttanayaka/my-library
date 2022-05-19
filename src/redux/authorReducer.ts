@@ -8,12 +8,10 @@ interface IAuthor {
 interface authorsSliceState {
     authors: IAuthor[];
     updateId: number;
-    isFormVisible: boolean;
 }
 const initialState: authorsSliceState = {
     authors: [],
     updateId: -1,
-    isFormVisible: false,
 }
 
 export const authorSlice = createSlice({
@@ -44,13 +42,10 @@ export const authorSlice = createSlice({
 
             state.authors = allAuthors;
         },
-        formVisible: (state, action: PayloadAction<boolean>) => {
-            state.isFormVisible = action.payload;
-        },
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { addAuthors, removeAuthors, updateAuthorId, updateAuthor, formVisible } = authorSlice.actions
+export const { addAuthors, removeAuthors, updateAuthorId, updateAuthor } = authorSlice.actions
 
 export default authorSlice.reducer

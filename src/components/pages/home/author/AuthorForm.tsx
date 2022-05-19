@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { XCircle } from "react-feather";
 import { useDispatch, useSelector } from 'react-redux';
-import { addAuthors, updateAuthor, updateAuthorId, formVisible } from '../../../../redux/authorReducer';
+import { addAuthors, updateAuthor, updateAuthorId } from '../../../../redux/authorReducer';
 import { useToasts } from 'react-toast-notifications';
 import { selectAuthor, selectAuthorUpdateId } from '../../../../redux/configureStore';
 
@@ -50,13 +50,17 @@ const AuthorForm: React.FC = () => {
     setValidated(false);
   };
 
+  const formStateSet = () => {
+    localStorage.setItem('authorForm', "false")
+  }
+
   return (
     <Row className="author-form-area mb-5">
       <Col xs={11} className="p-0 mb-2 ps-md-1">
         <h4>{updateId !== -1 ? "Update " : "Create "} Author</h4>
       </Col>
       <Col xs={1} className="p-0">
-        <XCircle className="form-close mt-1" onClick={() => dispatch(formVisible(false))} />
+        <XCircle className="form-close mt-1" onClick={() => formStateSet()} />
       </Col>
       <Col xs={12} className="p-0 author-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
