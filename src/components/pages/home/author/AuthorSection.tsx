@@ -1,16 +1,17 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { Row, Col } from "react-bootstrap";
 import { IAuthor, IBook } from "../../../types/LibraryTypes";
 import AddAuthor from "./AddAuthor";
 import AuthorForm from "./AuthorForm";
 import AuthorList from "./AuthorList";
 import AuthorTitle from "./AuthorTitle";
-import { useSelector } from 'react-redux';
-import { selectAuthorFormVisible } from '../../../../redux/configureStore';
 
 const AuthorSection: React.FC = () => {
+  const[isFormVisible, setIsFormVisible] = useState(false);
 
-  const isFormVisible = useSelector(selectAuthorFormVisible);
+  const formVisible = (state:boolean) => {
+      setIsFormVisible(state);
+  }
 
   return (
     <Row className="author-section mx-3 mx-md-4 mx-lg-5">
