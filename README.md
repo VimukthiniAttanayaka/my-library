@@ -2,9 +2,9 @@
 This project was genetated with React version 17.0.39
 
 # Development server
- clone "git clone git@github.com:VimukthiniAttanayaka/my-library.git"
- Download dependancy "npm install"
- Run "npm start"
+ clone "git clone git@github.com:VimukthiniAttanayaka/my-library.git".
+ Download dependancy "npm install".
+ Run "npm start".
  
  After aboue step you can see this project run on http://localhost:3000/ . The app will automatically reload if you change any of the source files.
 
