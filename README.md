@@ -1,2 +1,4 @@
 # my-library
-This library app i am going to make using react typescript, react bootstrap and scss
+I use React.tsx, Redux, Scss, React Bootstrap for coding this app. 
+
+This is React app so you can use npm start for running this app
