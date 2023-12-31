@@ -1,0 +1,17 @@
+.layout {
+  overflow-x: hidden;
+}
+.navbar {
+  h1 {
+    font-weight: 700;
+  }
+}
+.navbar-light .navbar-toggler{
+  border: none;
+}
+.navbar-toggler:focus{
+  box-shadow: none;
+}
+.navbar-collapse collapse show{
+  margin-bottom: 100px;
+}

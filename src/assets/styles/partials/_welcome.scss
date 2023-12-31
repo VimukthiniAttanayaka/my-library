@@ -1,0 +1,15 @@
+.welcome {
+  img {
+    width: 100%;
+  }
+  .photo-credit {
+    text-align: right;
+    font-size: 15px;
+    font-weight: 300;
+  }
+  @media (max-width: 990px) {
+    .photo-credit {
+      font-size: 13px;
+    }
+  }
+}

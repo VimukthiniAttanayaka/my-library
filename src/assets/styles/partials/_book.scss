@@ -1,0 +1,132 @@
+$author-book-color: #0c4840;
+$author-book-hover-color:#f5f5f5;
+$plus-color:#014199;
+$border-normal:#a9a9a9;
+$submit-background:#01589d;
+
+.book-section {
+  .title {
+    h2 {
+      border-bottom: 2px solid black;
+      padding: 0;
+    }
+  }
+  .empty-book {
+    text-transform: initial;
+    font-size: 0.95rem;
+  }
+  .book {
+    cursor: default;
+    p {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .edit {
+      display: none;
+      float: right;
+    }
+    .delete {
+      display: none;
+      float: right;
+    }
+  }
+  .book:hover {
+    background-color: $author-book-hover-color;
+    .edit {
+      display: block;
+      cursor: pointer;
+    }
+    .delete {
+      display: block;
+      cursor: pointer;
+    }
+  }
+  .add-book {
+    cursor: pointer;
+    .plus {
+      color: $plus-color;
+      margin-top: -3px;
+    }
+  }
+  .book-form-area {
+    h4 {
+      color: $author-book-color;
+      text-decoration: underline 3px solid;
+      cursor: default;
+    }
+    .form-close {
+      float: right;
+      cursor: pointer;
+    }
+    .book-name-label {
+      font-size: 0.8rem;
+      margin: 0;
+    }
+    .book-submit {
+      background-color: $submit-background;
+      color: white;
+      margin-top: 1.5rem;
+      padding: 2px 25px;
+      border-radius: 5px;
+      float: right;
+    }
+  }
+}
+@media (max-width: 576px) {
+  .title {
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  .book {
+    p {
+      font-size: 1.25rem !important;
+    }
+  }
+  .add-book {
+    font-size: 1rem;
+  }
+  .book-form-area {
+    h4 {
+      font-size: 1.15rem;
+    }
+  }
+}
+@media (min-width: 576px) {
+  .book-form {
+    padding-left: 2rem !important;
+  }
+}
+@media (max-width: 1200px) {
+  .edit {
+    display: block !important;
+  }
+  .delete {
+    display: block !important;
+  }
+}
+.form-control {
+  border-radius: 0;
+  border: 2px solid $border-normal;
+  min-height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem
+}
+.author-valid {
+  display: none;
+}
+.author-invalid {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+.select-invalid > div{
+  border: 2px solid #dc3545 !important;
+  border-radius: 0 !important;
+}
+.select-invalid1 > div{
+  border: 2px solid #198754 !important;
+  border-radius: 0 !important;
+}
